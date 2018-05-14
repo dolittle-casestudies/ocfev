@@ -20,6 +20,15 @@ Predict added resistance
     AR(STW, power) = Power/Benchmark
     
     benchmark:
+
+dataset 1 
+data for one year
+AR label calculated as described above.
+
+dataset 2
+
+Extract data with fauling close to 0. 3 month data
+AR label calculated as described above.
    
 
 
