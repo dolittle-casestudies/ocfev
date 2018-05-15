@@ -12,6 +12,7 @@ import iothub_client
 from iothub_client import IoTHubClient, IoTHubClientError, IoTHubTransportProvider
 from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubError
 import json
+from keras.models import model_from_json
 
 TEMPERATURE_THRESHOLD = 25
 TWIN_CALLBACKS = RECEIVE_CALLBACKS = 0
@@ -80,9 +81,10 @@ def device_twin_callback(update_state, payload, user_context):
 
 class HubManager(object):
 
-    def __init__(
-            self,
-            connection_string):
+    def __init__( self, connection_string):
+
+        #if (loaded_model != None)
+
         self.client_protocol = PROTOCOL
         self.client = IoTHubClient(connection_string, PROTOCOL)
 
@@ -123,6 +125,10 @@ def main(connection_string):
     try:
         print ( "\nPython %s\n" % sys.version )
         print ( "IoT Hub Client for Python" )
+
+        json_file = open('ml_json.json', 'r')
+        loaded_model_json = json_file.read()
+        loaded_model = model_from_json(loaded_model_json)
 
         hub_manager = HubManager(connection_string)
 
