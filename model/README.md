@@ -1,10 +1,12 @@
-# machine learning models
+# Machine learning Models
 
-Predict added resistance
+Predict added resistance 
 
-1. Extract relevat data from sql database
+To predict added resistance a period when the was clean hull was selected. 
+For a initial test the variables below was used to estimate the added resistance. 
+The added resistance was compared to a vessel Benchmark described in (2). Furthermore,
+some additional filtering was introduced prior to training due to spurious power output. 
    
-   timestamp
    wind angle
    depth list 
    power
@@ -13,22 +15,21 @@ Predict added resistance
    wind speed 
    trim
    
-   these data are timeseries, extracted data averaged by 5 min interval
+   these data are timeseries, extracted data averaged by 1 min interval
    
-2.  Create label, added resistance value using known benchmark
+resistance label is a added resistance value using known benchmark
 
     AR(STW, power) = Power/Benchmark
-    
-    benchmark:
 
-dataset 1 
-data for one year
-AR label calculated as described above.
+Model: 
 
-dataset 2
+The problem described translates into regression model that predicts value of added resistance. 
+We have used fully connected neural network. The model is implemented with 
+sklearn and keras frameworks.
 
-Extract data with fauling close to 0. 3 month data
-AR label calculated as described above.
+Model evaluation on our train dataset: r2 score: 0.96976
+
+
    
 
 
