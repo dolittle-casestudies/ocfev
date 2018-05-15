@@ -13,7 +13,11 @@ from keras.models import Sequential
 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-df = pd.read_csv("dataset1.csv")
+from sklearn.externals import joblib
+
+
+df = pd.read_csv("dataset2_1.csv")
+
 
 #preprocessing
 df = df.dropna( axis=0, how ="any")
@@ -23,6 +27,8 @@ df = df[df["label"] > 0.5]
 X = df.drop(["time","label"], axis=1)
 Y = df["label"]
 #print(df.info())
+
+print(X.shape)
 
 scalarX, scalarY = MinMaxScaler(), MinMaxScaler()
 scalarX.fit(X)
@@ -59,6 +65,13 @@ model.add(Dense(1,activation='linear'))
 model.compile(loss='mse', optimizer='adam')
 
 model.fit(X_train, Y_train)
+
+#joblib.dump(model, 'mlmodel.pkl')
+
+# serialize model to JSON
+model_json = model.to_json()
+with open("ml_json.json", "w") as json_file:
+    json_file.write(model_json)
 
 #predict results
 Y_pred = model.predict(X_test)
