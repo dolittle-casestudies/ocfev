@@ -6,6 +6,11 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/* SETUP
+    Create an appsettings.yml file. Set properties to 
+
+*/
 namespace console_vessel_simulator
 {
     class Program
@@ -59,8 +64,10 @@ namespace console_vessel_simulator
                 var telemetryDataPoint = new
                 {
                     temperature = currentTemperature,
-                    humidity = currentHumidity
+                    humidity = currentHumidity,
+                    type = "1"
                 };
+
                 var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
                 var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
