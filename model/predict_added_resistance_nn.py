@@ -17,6 +17,8 @@ df = pd.read_csv("dataset1.csv")
 
 #preprocessing
 df = df.dropna( axis=0, how ="any")
+df = df[df["label"] < 2]
+df = df[df["label"] > 0.5]
 
 X = df.drop(["time","label"], axis=1)
 Y = df["label"]
@@ -24,9 +26,9 @@ Y = df["label"]
 
 scalarX, scalarY = MinMaxScaler(), MinMaxScaler()
 scalarX.fit(X)
-scalarY.fit(Y.reshape(54191,1))
+scalarY.fit(Y.reshape(Y.__len__(),1))
 X = scalarX.transform(X)
-Y = scalarY.transform(Y.reshape(54191,1))
+Y = scalarY.transform(Y.reshape(Y.__len__(),1))
 
 #split for training
 X_train, X_test, Y_train, Y_test = train_test_split( X, Y, test_size=0.20, random_state=42)
