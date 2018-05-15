@@ -3,6 +3,8 @@ using System;
 using MQTTnet;
 using MQTTnet.Client;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace console_mqtt_simulator
 {
@@ -13,7 +15,7 @@ namespace console_mqtt_simulator
 
         static void Main(string[] args)
         {
-            new Program().Simulate();
+            new Program().Simulate().GetAwaiter().GetResult();
         }
 
         async Task Simulate()
@@ -41,43 +43,43 @@ namespace console_mqtt_simulator
 
             Console.WriteLine("IoT Hub module client initialized.");
 
-            SendDeviceToCloudMessagesAsync();
+            SendDeviceToCloudMessagesAsync().GetAwaiter().GetResult();
 
             Console.ReadLine();
 
 
         }
 
-        private async void SendDeviceToCloudMessagesAsync()
+        private async Task SendDeviceToCloudMessagesAsync()
         {
-            // Initial telemetry values
-            double minTemperature = 20;
-            double minHumidity = 60;
             Random rand = new Random();
 
             while (true)
             {
-                double currentTemperature = minTemperature + rand.NextDouble() * 15;
-                double currentHumidity = minHumidity + rand.NextDouble() * 20;
-
                 // Create JSON message
                 var telemetryDataPoint = new
                 {
-                    temperature = currentTemperature,
-                    humidity = currentHumidity,
-                    type = "1"
+                    angle_wind_relative = rand.NextDouble() * 360,
+                    depth = rand.NextDouble() * 9000,
+                    list = -45 + rand.NextDouble() * 90,
+                    power = rand.NextDouble() * 70,
+                    sog = rand.NextDouble() * 25,
+                    relative_windspeed = -60 + rand.NextDouble() * 120,
+                    stw = -2 + rand.NextDouble() * 35,
+                    trim = -5 + rand.NextDouble() * 10
                 };
 
-                var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
-                var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
-                // Add a custom application property to the message.
-                // An IoT hub can filter on these properties without access to the message body.
-                message.Properties.Add("temperatureAlert", (currentTemperature > 30) ? "true" : "false");
+                //setup the message
+                var MQTTmessage = new MqttApplicationMessageBuilder()
+                            .WithTopic("EdgeMessageTopic")
+                            .WithPayload(JsonConvert.SerializeObject(telemetryDataPoint))
+                            .Build();
 
-                // Send the tlemetry message
-                await deviceClient.SendEventAsync(message);
-                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                //publish the message
+                await mqttClient.PublishAsync(MQTTmessage);
+
+                Console.WriteLine($"{JsonConvert.SerializeObject(telemetryDataPoint)}");
 
                 await Task.Delay(1000);
             }
