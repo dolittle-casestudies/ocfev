@@ -1,0 +1,21 @@
+FROM microsoft/dotnet:2.0-sdk AS build-env
+WORKDIR /app
+
+COPY ./NuGet.Config ./
+
+COPY *.csproj ./
+RUN dotnet restore
+
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+FROM microsoft/dotnet:2.0-runtime
+WORKDIR /app
+COPY --from=build-env /app/out ./
+
+RUN useradd -ms /bin/bash moduleuser
+USER moduleuser
+
+EXPOSE 1883/tcp
+
+ENTRYPOINT ["dotnet", "MQTT.dll"]
