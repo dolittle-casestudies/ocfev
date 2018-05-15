@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -29,8 +30,13 @@ namespace console_vessel_simulator
 
             Console.WriteLine("Simulated device. Ctrl-C to exit.\n");
 
-            // Connect to the IoT hub using the MQTT protocol
-            deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Mqtt);
+            var mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
+            // During dev you might want to bypass the cert verification. It is highly recommended to verify certs systematically in production
+            mqttSetting.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            ITransportSettings[] settings = { mqttSetting };
+
+            deviceClient = DeviceClient.CreateFromConnectionString(connectionString, settings);
+            
             SendDeviceToCloudMessagesAsync();
             Console.ReadLine();
 
