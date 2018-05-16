@@ -24,10 +24,10 @@ namespace MQTT
             if (!bypassCertVerification) InstallCert();
 
             // Wait until the app unloads or is cancelled
-            var host = Host.CreateBuilder("MQTT")
+            var host = Host.CreateBuilder("OCFEV")
                 .Application(application_builder =>
                     application_builder
-                    .PrefixLocationsWith(new BoundedContext("ingestion"))
+                    .PrefixLocationsWith(new BoundedContext("MQTT"))
                     .WithStructureStartingWith<BoundedContext>(_ => _)
                 )
                 .Build();
