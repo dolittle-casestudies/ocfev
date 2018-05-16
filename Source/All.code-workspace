@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "Modules"
+		},
+		{
+			"path": "Infrastructure"
+		},
+		{
+			"path": "K8s"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
