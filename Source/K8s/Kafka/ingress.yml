@@ -1,0 +1,17 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ocfev-kafka
+  namespace: ocfev
+  annotations:
+      ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: ocfev-kafka.dolittle.cloud          
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kafka-manager-service
+          servicePort: 80                    

@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+  namespace: ocfev
+  labels:
+    app: kafka
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9092
+    name: kafka-port
+    protocol: TCP
+  selector:
+    app: kafka
+    id: "1"
+    name: kafka
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-manager-service
+  namespace: ocfev
+  labels:
+    app: kafka
+spec:
+  ports:
+  - port: 80
+    targetPort: 9000
+    name: kafka-port
+    protocol: TCP
+  selector:
+    app: kafka
+    name: kafka-manager
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zoo1
+  namespace: ocfev
+  labels:
+    app: kafka
+spec:
+  ports:
+  - name: client
+    port: 2181
+    protocol: TCP
+  - name: follower
+    port: 2888
+    protocol: TCP
+  - name: leader
+    port: 3888
+    protocol: TCP
+  selector:
+    app: kafka
+    name: zookeeper
