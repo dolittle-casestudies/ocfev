@@ -13,11 +13,8 @@ from keras.models import Sequential
 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-from sklearn.externals import joblib
-
 
 df = pd.read_csv("dataset2_1.csv")
-
 
 #preprocessing
 df = df.dropna( axis=0, how ="any")
@@ -66,12 +63,18 @@ model.compile(loss='mse', optimizer='adam')
 
 model.fit(X_train, Y_train)
 
-#joblib.dump(model, 'mlmodel.pkl')
-
+#serialize model way 1
 # serialize model to JSON
 model_json = model.to_json()
-with open("ml_json.json", "w") as json_file:
+with open("AR_pred_model_architecture.json", "w") as json_file:
     json_file.write(model_json)
+# serialize weights to HDF5
+model.save_weights("AR_pred_weights.h5")
+
+#serialize model way 2 :
+## save full model , achitecture, weights, optimizer used, loss funciton used etc to one binary file
+model.save("AR_pred_full.h5")
+print(model.summary())
 
 #predict results
 Y_pred = model.predict(X_test)
@@ -91,3 +94,4 @@ plt.xticks(())
 plt.yticks(())
 
 plt.show()
+
