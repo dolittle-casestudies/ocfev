@@ -1,18 +1,34 @@
 <template>
     <require from="./index.scss"></require>
-    <section class="index">
+    <div class="index dashboard_grid">
+        <seection class="speed">
+            <!-- Speed on water -->
+            Full speed ahead!
+        </seection>
+        <section class="throttle">
+            <!-- Kilowatt / Throttle -->
+            Full throttle!
+        </section>
+        <section class="wind">
+            <!-- Wind speed / direction -->
+            Feel free to let your wind go here.
+        </section>
+        <section class="gravity">
+            <!-- Pitch / Yaw / Roll -->
+            <p>${orientation.gravityX}</p>
+            <p textcontent.bind="orientation.gravityY"></p>
+            <p textcontent.bind="orientation.gravityZ"></p>
+        </section>
 
-        <!-- Pitch / Yaw / Roll -->
-        <p>${orientation.gravityX}</p>
-        <p textcontent.bind="orientation.gravityY"></p>
-        <p textcontent.bind="orientation.gravityZ"></p>
-
+        <section class="map">
+            Where should we go from here?
+        </section>
+        <section class="graphs">
+            In graphs we trust.
+        </section>
         <!-- Friction -->
 
-        <!-- Wind speed / direction -->
 
-        <!-- Kilowatt / Throttle -->
 
-        <!-- Speed on water -->
-    </section>
+    </div>
 </template>
