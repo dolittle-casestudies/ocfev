@@ -22,9 +22,8 @@ export class HubConnection {
     }
 
     on(method, callback, _this) {
-        callbacks.get(this)[method] = () =>  {
-            //debugger;
-        callback.apply(_this||this, arguments);
+        callbacks.get(this)[method] = function () {
+            callback.apply(_this || this, arguments);
         };
     }
 
