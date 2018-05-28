@@ -1,3 +1,4 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/dolittle-casestudies/ocfev.png?columns=all)](https://waffle.io/dolittle-casestudies/ocfev?utm_source=badge)
 # OCFEV
 
 Occasionally Connected Fuel Efficient Vessels
