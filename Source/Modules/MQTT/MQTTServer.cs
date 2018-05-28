@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using MQTTnet;
@@ -31,16 +32,19 @@ namespace MQTT
                 .WithConnectionBacklog(100)
                 .WithDefaultEndpoint()
                 .WithDefaultEndpointPort(1883)
-
                 .WithApplicationMessageInterceptor(MessageReceived)
                 .Build();
 
             var server = new MqttFactory().CreateMqttServer();
+            server.ClientConnected += (sender, client) => Console.WriteLine($"{DateTime.UtcNow} - Client connected {client.Client.ClientId}");
+            server.ClientDisconnected += (sender, client) => Console.WriteLine($"{DateTime.UtcNow} - Client disconnected {client.Client.ClientId}");
             server.StartAsync(serverOptions).Wait();
         }
 
         void MessageReceived(MqttApplicationMessageInterceptorContext context)
         {
+            var messageAsString = Encoding.UTF8.GetString(context.ApplicationMessage.Payload);
+            Console.WriteLine($"{DateTime.UtcNow} - MQTT Message received ({context.ApplicationMessage.Topic}) - {messageAsString}");
             var message = new Message(context.ApplicationMessage.Payload);
             _deviceClient.SendEventAsync(context.ApplicationMessage.Topic, message);
         }
