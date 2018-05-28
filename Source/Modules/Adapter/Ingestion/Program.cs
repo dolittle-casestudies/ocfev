@@ -25,24 +25,26 @@ namespace Ingestion
         static void Main(string[] args)
         {
             // Cert verification is not yet fully functional when using Windows OS for the container
-            /*
             var bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             if (!bypassCertVerification) InstallCert();
-            */
 
             // Wait until the app unloads or is cancelled
             Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_SEND_TOPICS","visualization");
             Globals.BoundedContext = new BoundedContext("ingestion");
             var host = Host.CreateBuilder("OCFEV")
-                /*.Application(application_builder =>
+                .Application(application_builder =>
                     application_builder
                     .PrefixLocationsWith(Globals.BoundedContext)
-                    .WithStructureStartingWith<BoundedContext>(_ => _)
-                )*/
+                    .WithStructureStartingWith<BoundedContext>(_ => _
+                        .Required.WithChild<Feature>(f => f
+                            .WithChild<SubFeature>(c => c.Recursive)
+                        )
+                    )
+                )
                 .Build(); 
 
             BoundedContextListener.Start(host.Container);
-            host.Container.Get<IDeviceEventConsumer>().Start();
+            host.Container.Get<IDeviceEventConsumer>().Start().Wait();
 
             var cts = new CancellationTokenSource();
             AssemblyLoadContext.Default.Unloading += (ctx) => cts.Cancel();

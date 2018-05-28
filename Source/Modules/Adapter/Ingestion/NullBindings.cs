@@ -45,7 +45,7 @@ namespace Ingestion
 
             builder.Bind<BoundedContext>().To(Globals.BoundedContext);
 
-            var applicationConfigurationBuilder = new ApplicationConfigurationBuilder("CBS")
+            var applicationConfigurationBuilder = new ApplicationConfigurationBuilder("OCFEV")
                 .Application(applicationBuilder =>
                     applicationBuilder
                     .PrefixLocationsWith(Globals.BoundedContext)
