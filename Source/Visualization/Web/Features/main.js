@@ -9,7 +9,8 @@ Bluebird.config({ warnings: { wForgottenReturn: false } });
 
 export function configure(aurelia) {
   aurelia.use
-    .standardConfiguration();
+    .standardConfiguration()
+    .feature(PLATFORM.moduleName('components/index'));
 
   if (environment.debug) {
     aurelia.use.developmentLogging();
