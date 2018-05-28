@@ -1,0 +1,16 @@
+.option-list {
+    margin: 0;
+    padding: 0;
+    li {
+        background-color: $color-light-grey;
+        border: .0625rem solid $color-medium-grey;
+        border-radius: .125rem;
+        margin-bottom: $grid-gutter;
+        a {
+            display: flex;
+            align-items: center;
+            padding: $grid-gutter/2;
+            width: 100%;
+        }
+    }
+}

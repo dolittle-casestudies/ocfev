@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-top: $grid-gutter;
+    border-collapse: collapse;
+    thead {
+        tr {
+            border-bottom: .0625rem solid $color-medium-grey;
+        }
+        th {
+            font-size: 1rem;
+            font-weight: normal;
+            padding-bottom: $grid-gutter/3;
+            text-transform: uppercase;
+        }
+    }
+    tbody {
+        tr {
+            &:nth-child(2n) {
+                background-color: darken( $color-light-grey, 1%);
+            }
+        }
+    }
+    th,
+    td {
+        padding: $grid-gutter/8 $grid-gutter/2;
+        text-align: left;
+        border: none;
+    }
+}

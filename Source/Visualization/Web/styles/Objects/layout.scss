@@ -1,0 +1,28 @@
+.content-box {
+    background-color: #fff;
+    padding: $grid-gutter/2 $grid-gutter;
+    @include media-bp-min(tablet) {
+        padding: $grid-gutter;
+        border-radius: .25rem;
+        box-shadow: .3125rem .3125rem 0 darken($color-medium-grey, 15%);
+        margin-bottom: $grid-gutter;
+    }
+}
+
+.narrow-column {
+    @extend %fixed-width-at-tablet;
+    margin: 0 auto;
+    .centered {
+        text-align: center;
+    }
+}
+
+.button-row {
+    @extend %flex-container-horizontal;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: $grid-gutter 0;
+    .centered {
+        justify-content: center;
+    }
+}

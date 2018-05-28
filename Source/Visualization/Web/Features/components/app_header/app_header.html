@@ -1,0 +1,11 @@
+<template>
+    <require from="./app_header.scss"></require>
+    <header class="app_header">
+        <div class="content-box">
+            <figure class="site-logo">
+                <img src="${tenantLogoUrl}" alt="Logo">
+            </figure>
+            <span if.bind="tenantName" class="tenant-name">${tenantName}</span>
+        </div>
+    </header>
+</template>

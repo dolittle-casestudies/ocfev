@@ -1,0 +1,11 @@
+@import '../styles/Settings/all';
+@import '../styles/Tools/all';
+main {
+    flex: 1 1 auto;
+    width: 100vw;
+    &.default_layout {
+        @include media-bp-min(tablet) {
+            padding: $grid-gutter;
+        }
+    }
+}

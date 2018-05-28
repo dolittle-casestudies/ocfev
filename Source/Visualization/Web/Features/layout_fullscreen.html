@@ -1,0 +1,10 @@
+<template>
+    <require from="./components/app_header/app_header"></require>
+    <require from="./components/app_footer/app_footer"></require>
+    <require from="./layout_fullscreen.scss"></require>
+    <app_header containerless></app_header>
+    <main>
+        <slot></slot>
+    </main>
+    <app_footer containerless></app_footer>
+</template>

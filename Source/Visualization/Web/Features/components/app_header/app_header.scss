@@ -1,0 +1,17 @@
+@import '../../../styles/Settings/all.scss';
+@import '../../../styles/Tools/all.scss';
+.app_header {
+    .content-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        figure {
+            width: 13rem;
+        }
+        .tenant-name {
+            font-size: 1.3rem;
+            margin-left: $grid-gutter/2;
+            text-align: left;
+        }
+    }
+}

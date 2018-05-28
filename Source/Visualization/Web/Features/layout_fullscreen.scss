@@ -1,0 +1,38 @@
+@import '../styles/Settings/all.scss';
+@import '../styles/Tools/all.scss';
+
+main {
+}
+.app_header {
+    width: 100vw;
+    .content-box {
+        @extend %flex-container-vertical-center;
+        padding-top: 1rem;
+        @include media-bp-min(tablet) {
+            align-items: flex-end;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 2.5rem $grid-gutter * 3 2rem;
+        }
+    }
+    .site-logo {
+        display: block;
+        max-width: 100%;
+        transition: 0.5s width;
+        width: 15rem;
+        @include media-bp-min(tablet) {
+            width: 20rem;
+        }
+        @include media-bp-min(tablet-landscape) {
+            width: 21.875rem;
+        }
+        svg {
+            max-width: 100%;
+        }
+    }
+}
+.content-box {
+    border-radius: 0;
+    box-shadow: unset;
+    margin: 0;
+}

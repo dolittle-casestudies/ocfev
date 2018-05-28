@@ -1,0 +1,24 @@
+{
+  "name": "sentry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "./run.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dolittle.javascript.build": "https://github.com/dolittle/JavaScript.Build.git",
+    "dolittle.javascript.build.aurelia": "https://github.com/dolittle-interaction/JavaScript.Build.Aurelia.git",
+    "dolittle.styles": "https://github.com/dolittle/dolittle.styles.git"
+  },
+  "dependencies": {
+    "@dolittle/commands": "^1.0.5",
+    "@dolittle/core": "^1.0.2",
+    "@dolittle/queries": "^1.0.6",
+    "aurelia-http-client": "^1.2.1",
+    "aurelia-open-id-connect": "^1.0.3"
+  }
+}
