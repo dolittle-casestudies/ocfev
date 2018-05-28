@@ -12,7 +12,8 @@ import iothub_client
 from iothub_client import IoTHubClient, IoTHubClientError, IoTHubTransportProvider
 from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubError
 import json
-from keras.models import model_from_json
+from keras.models import load_model
+import numpy as np
 
 TEMPERATURE_THRESHOLD = 25
 TWIN_CALLBACKS = RECEIVE_CALLBACKS = 0
@@ -33,6 +34,8 @@ PROTOCOL = IoTHubTransportProvider.MQTT
 # "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>;ModuleId=<module_id>;GatewayHostName=<gateway>"
 CONNECTION_STRING = "[Device Connection String]"
 
+model = None
+
 # Callback received when the message that we're forwarding is processed.
 def send_confirmation_callback(message, result, user_context):
     global SEND_CALLBACKS
@@ -43,13 +46,18 @@ def send_confirmation_callback(message, result, user_context):
     SEND_CALLBACKS += 1
     print ( "    Total calls confirmed: %d" % SEND_CALLBACKS )
 
-
 # receive_message_callback is invoked when an incoming message arrives on the specified 
 # input queue (in the case of this sample, "input1").  Because this is a filter module, 
 # we will forward this message onto the "output1" queue.
 def receive_message_callback(message, hubManager):
     global RECEIVE_CALLBACKS
     global TEMPERATURE_THRESHOLD
+    global model
+
+    ito_list = np.array([[0.9, 0.13, 0.00019, 0.11, 0.17, 0.16, 0.16, -0.1000946]])
+    ar_pred = model.predict(ito_list)
+    print("Custom message from predicted keras model {}".format(ar_pred))
+
     message_buffer = message.get_bytearray()
     size = len(message_buffer)
     message_text = message_buffer[:size].decode('utf-8')
@@ -60,9 +68,11 @@ def receive_message_callback(message, hubManager):
     RECEIVE_CALLBACKS += 1
     print("    Total calls received: {:d}".format(RECEIVE_CALLBACKS))
     data = json.loads(message_text)
-    if "machine" in data and "temperature" in data["machine"] and data["machine"]["temperature"] > TEMPERATURE_THRESHOLD:
-        map_properties.add("MessageType", "Alert")
-        print("Machine temperature {} exceeds threshold {}".format(data["machine"]["temperature"], TEMPERATURE_THRESHOLD))
+
+    #if "machine" in data and "temperature" in data["machine"] and data["machine"]["temperature"] > TEMPERATURE_THRESHOLD:
+    #   map_properties.add("MessageType", "Alert")
+    #   print("Machine temperature {} exceeds threshold {}".format(data["machine"]["temperature"], TEMPERATURE_THRESHOLD))
+
     hubManager.forward_event_to_output("output1", message, 0)
     return IoTHubMessageDispositionResult.ACCEPTED
 
@@ -82,8 +92,6 @@ def device_twin_callback(update_state, payload, user_context):
 class HubManager(object):
 
     def __init__( self, connection_string):
-
-        #if (loaded_model != None)
 
         self.client_protocol = PROTOCOL
         self.client = IoTHubClient(connection_string, PROTOCOL)
@@ -122,13 +130,12 @@ class HubManager(object):
             outputQueueName, event, send_confirmation_callback, send_context)
 
 def main(connection_string):
+    global model
     try:
         print ( "\nPython %s\n" % sys.version )
         print ( "IoT Hub Client for Python" )
 
-        json_file = open('ml_json.json', 'r')
-        loaded_model_json = json_file.read()
-        loaded_model = model_from_json(loaded_model_json)
+        model = load_model("AR_pred_full.h5")
 
         hub_manager = HubManager(connection_string)
 
@@ -145,6 +152,7 @@ def main(connection_string):
         print ( "IoTHubClient sample stopped" )
 
 if __name__ == '__main__':
+
     try:
         CONNECTION_STRING = os.environ['EdgeHubConnectionString']
 
