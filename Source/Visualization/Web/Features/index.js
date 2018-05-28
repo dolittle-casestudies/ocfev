@@ -1,22 +1,21 @@
 import { inject } from 'aurelia-framework';
-import { VesselOrientationHub } from "./VesselOrientationHub";
+import { VesselOrientationHub } from './VesselOrientationHub';
 import { observable } from 'aurelia-framework';
 
 @inject(VesselOrientationHub)
 export class index {
+  // Speed on water
+  // Kilowatt / Throttle
 
-    // Speed on water
-    // Kilowatt / Throttle
+  // Wind speed
 
-    // Wind speed
+  // Wind direction
 
-    // Wind direction
+  // Gravity -> pitch / yaw / roll
 
-    // Gravity -> pitch / yaw / roll
+  // Friction
 
-    // Friction
-
-    constructor(vesselOrientationHub) {
-        this.orientation = vesselOrientationHub;
-    }
+  constructor(vesselOrientationHub) {
+    this.orientation = vesselOrientationHub;
+  }
 }

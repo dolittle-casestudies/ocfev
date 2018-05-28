@@ -1,0 +1,13 @@
+.action_bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40rem;
+  background-color: #ccc;
+  height: 100%;
+  a.gear {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+  }
+}
