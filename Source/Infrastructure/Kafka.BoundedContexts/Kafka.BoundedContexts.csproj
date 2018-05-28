@@ -20,6 +20,10 @@
         <PackageReference Include="Dolittle.Serialization.Json" Version="2.0.0-alpha2*" />
         <PackageReference Include="Dolittle.Types" Version="2.0.0-alpha2*" />
         <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+        <PackageReference Include="Dolittle.Serialization.Json" Version="2.0.0-alpha2*" />
+        <PackageReference Include="Dolittle.Runtime.Events.Serialization.Json" Version="2.0.0-alpha2*" />
+        <PackageReference Include="Dolittle.Applications.Serialization.Json" Version="2.0.0-alpha2*" />
+        <PackageReference Include="Dolittle.Concepts.Serialization.Json" Version="2.0.0-alpha2*" />
     </ItemGroup>
 
     <ItemGroup>

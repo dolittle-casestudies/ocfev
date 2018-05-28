@@ -1,7 +1,7 @@
 using Dolittle.Events;
 using Dolittle.Runtime.Events;
 
-namespace Infrastructure.Kafka.BoundedContexts
+namespace Domain.BoundedContexts
 {
     public class ExternalSource : EventSource
     {

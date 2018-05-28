@@ -14,6 +14,7 @@ using Dolittle.Runtime.Transactions;
 using Dolittle.Types;
 using Newtonsoft.Json;
 using Dolittle.DependencyInversion;
+using Domain.BoundedContexts;
 
 namespace Infrastructure.Kafka.BoundedContexts
 {
@@ -71,6 +72,7 @@ namespace Infrastructure.Kafka.BoundedContexts
             try
             {
                 _logger.Trace($"Message received '{eventAsJson}'");
+                Console.WriteLine($"Message received '{eventAsJson}'");
                 dynamic raw = JsonConvert.DeserializeObject(eventAsJson);
                 _logger.Trace("Enumerate content");
 
@@ -162,6 +164,7 @@ namespace Infrastructure.Kafka.BoundedContexts
                 if( _configuration.Topic == string.Empty ) 
                 {
                     _logger.Warning("Missing topic - won't get events from other bounded contexts");
+                    Console.WriteLine("Missing topic - won't get events from other bounded contexts");
                     return;
                 }
                 _consumer.SubscribeTo($"BoundedContextListenerFor_{_configuration.Topic}",_configuration.Topic, Received);

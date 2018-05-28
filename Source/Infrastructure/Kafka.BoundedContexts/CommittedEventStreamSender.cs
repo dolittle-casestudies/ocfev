@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Dolittle.Collections;
 using Dolittle.Logging;
@@ -46,9 +47,11 @@ namespace Infrastructure.Kafka.BoundedContexts
             var json = _serializer.ToJson(eventContentAndEnvelopes);
 
             _logger.Trace("Sending JSON : " + json);
+            Console.WriteLine($"Sendind JSON : '{json}'");
             _senderConfiguration.Topics.ForEach(topic =>
             {
                 _logger.Information($"Send committed event stream to topic: '{topic}'");
+                Console.WriteLine($"Send committed event stream to topic: '{topic}'");
                 _publisher.Publish(topic, json);
             });
         }
