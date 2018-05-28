@@ -1,8 +1,18 @@
 <template>
     <require from="./index.scss"></require>
     <section class="index">
-        <p textcontent.bind="gravityX"></p>
-        <p textcontent.bind="gravityY"></p>
-        <p textcontent.bind="gravityZ"></p>
+
+        <!-- Pitch / Yaw / Roll -->
+        <p>${orientation.gravityX}</p>
+        <p textcontent.bind="orientation.gravityY"></p>
+        <p textcontent.bind="orientation.gravityZ"></p>
+
+        <!-- Friction -->
+
+        <!-- Wind speed / direction -->
+
+        <!-- Kilowatt / Throttle -->
+
+        <!-- Speed on water -->
     </section>
 </template>
