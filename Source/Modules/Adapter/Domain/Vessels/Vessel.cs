@@ -1,8 +1,9 @@
+using System.Numerics;
 using Dolittle.Domain;
 using Dolittle.Runtime.Events;
-using Events;
+using Events.Vessels;
 
-namespace Domain
+namespace Domain.Vessels
 {
     public class Vessel : AggregateRoot
     {
@@ -14,6 +15,11 @@ namespace Domain
         {
             if( newValue > _previousPower ) Apply(new PowerIncreased { From = _previousPower, To = newValue });
             else Apply(new PowerIncreased { From = _previousPower, To = newValue });
+        }
+
+        public void ChangeGravity(Vector3 vector)
+        {
+            Apply(new GravityChanged { X = vector.X, Y = vector.Y, Z = vector.Z });
         }
     }
 }
