@@ -14,6 +14,9 @@ from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubE
 import json
 from keras.models import load_model
 import numpy as np
+from sklearn.externals import joblib
+from keras.models import model_from_json
+import tensorflow as tf
 
 TEMPERATURE_THRESHOLD = 25
 TWIN_CALLBACKS = RECEIVE_CALLBACKS = 0
@@ -35,6 +38,7 @@ PROTOCOL = IoTHubTransportProvider.MQTT
 CONNECTION_STRING = "[Device Connection String]"
 
 model = None
+graph = None
 
 # Callback received when the message that we're forwarding is processed.
 def send_confirmation_callback(message, result, user_context):
@@ -53,21 +57,27 @@ def receive_message_callback(message, hubManager):
     global RECEIVE_CALLBACKS
     global TEMPERATURE_THRESHOLD
     global model
+    global graph
 
+    print("Model prediction placeholder")
+
+    print( "Message reveived")
+    print(message)
     ito_list = np.array([[0.9, 0.13, 0.00019, 0.11, 0.17, 0.16, 0.16, -0.1000946]])
-    ar_pred = model.predict(ito_list)
-    print("Custom message from predicted keras model {}".format(ar_pred))
+    with graph.as_default():
+        ar_pred = model.predict(ito_list, verbose=1)
+    print("Custom message from predicted sklearn model {}".format(ar_pred))
 
-    message_buffer = message.get_bytearray()
-    size = len(message_buffer)
-    message_text = message_buffer[:size].decode('utf-8')
-    print("    Data: <<<{}>>> & Size={:d}".format(message_text, size))
-    map_properties = message.properties()
-    key_value_pair = map_properties.get_internals()
-    print("    Properties: {}".format(key_value_pair))
+    # message_buffer = message.get_bytearray()
+    # size = len(message_buffer)
+    # message_text = message_buffer[:size].decode('utf-8')
+    # print("    Data: <<<{}>>> & Size={:d}".format(message_text, size))
+    # map_properties = message.properties()
+    # key_value_pair = map_properties.get_internals()
+    # print("    Properties: {}".format(key_value_pair))
     RECEIVE_CALLBACKS += 1
-    print("    Total calls received: {:d}".format(RECEIVE_CALLBACKS))
-    data = json.loads(message_text)
+    # print("    Total calls received: {:d}".format(RECEIVE_CALLBACKS))
+    # data = json.loads(message_text)
 
     #if "machine" in data and "temperature" in data["machine"] and data["machine"]["temperature"] > TEMPERATURE_THRESHOLD:
     #   map_properties.add("MessageType", "Alert")
@@ -132,10 +142,25 @@ class HubManager(object):
 def main(connection_string):
     global model
     try:
-        print ( "\nPython %s\n" % sys.version )
-        print ( "IoT Hub Client for Python" )
+        print ( "CSE hackfest : IoT Hub Client for Python" )
 
-        model = load_model("AR_pred_full.h5")
+        #model = load_model("AR_pred_full.h5")
+        #print("main: loaded model")
+        #print(model.summary())
+        # regr = joblib.load('regr.pkl')
+        # print("loaded linear model sklearn")
+
+        # load 1
+        json_file = open('AR_pred_model_architecture.json', 'r')
+        loaded_model_json = json_file.read()
+        model = model_from_json(loaded_model_json)
+        # load weights into new model
+        model.load_weights("AR_pred_weights.h5")
+        print(model.summary())
+        print("Model keras loaded")
+
+        global graph
+        graph = tf.get_default_graph()
 
         hub_manager = HubManager(connection_string)
 
