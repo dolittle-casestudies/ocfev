@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "Modules"
+		},
+		{
+			"path": "Infrastructure"
+		},
+		{
+			"path": "K8s"
+		},
+		{
+			"path": "/Users/einari/Projects/Dolittle/CaseStudies/ocfev/simulator/console-mqtt-simulator"
+		},
+		{
+			"path": "Visualization"
+		},
+		{
+			"path": "Devices"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

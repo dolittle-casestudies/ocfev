@@ -1,0 +1,10 @@
+html,
+body {
+    min-height: 100vh;
+}
+
+body {
+    @extend %flex-container-vertical-center;
+    background: $body-background-color url('../assets/dolittle_symbol.svg') no-repeat right 80%;
+    background-size: 40%;
+}
