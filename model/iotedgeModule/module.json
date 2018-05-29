@@ -4,7 +4,7 @@
     "image": {
         "repository": "kamusta.azurecr.io/iotedgemodule",
         "tag": {
-            "version": "0.0.4",
+            "version": "0.0.14",
             "platforms": {
                 "amd64": "./Dockerfile"
             }
