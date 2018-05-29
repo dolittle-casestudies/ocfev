@@ -2,11 +2,12 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { customElement, inject } from 'aurelia-framework';
+import { containerless, customElement, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import fallback_logo from '../../../assets/dolittle_logo_positive.svg';
 @inject(Router)
 @customElement('app-header')
+@containerless()
 export class app_header {
   tenantName = '';
   tenantId = '';

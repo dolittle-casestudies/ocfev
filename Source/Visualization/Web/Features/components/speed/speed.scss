@@ -1,16 +1,21 @@
 @import '../../../styles/Settings/all';
 .speed {
   grid-area: speed;
-  text-align: center;
-  padding: $grid-gutter;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  h1 {
+    margin: 0;
+    white-space: nowrap;
+  }
   strong,
   em {
     font-family: 'Courier New', Courier, monospace;
     display: block;
   }
   strong {
-    font-size: 7rem;
+    font-size: 8rem;
     font-weight: 300;
   }
   em {

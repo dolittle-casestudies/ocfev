@@ -1,6 +1,8 @@
+import { containerless, bindable } from 'aurelia-framework';
 import L from 'leaflet';
 import map_marker from './map_marker_icon';
 
+@containerless()
 export class map {
   constructor() {}
 
@@ -18,8 +20,8 @@ export class map {
 
   _createMap() {
     let _map = new L.Map(this.map_container, {
-      center: [0, 0],
-      zoom: 2
+      center: [59.11927, 10.223576],
+      zoom: 12
     });
 
     L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
@@ -27,7 +29,6 @@ export class map {
     }).addTo(_map);
     _map.on('click', function(e) {
       console.log('Lat, Lon : ' + e.latlng.lat + ', ' + e.latlng.lng);
-      console.log(e);
     });
     return _map;
   }
