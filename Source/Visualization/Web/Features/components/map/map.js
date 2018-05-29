@@ -7,10 +7,12 @@ export class map {
   constructor() {}
 
   /*
-  map.on('click', function(e) {
-    alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
-});
-*/
+    let marker = L.marker(new L.LatLng(53.471, 18.744), {draggable: true}).addTo(map);
+    marker.on('dragend', function (e) {
+        document.getElementById('latitude').value = marker.getLatLng().lat;
+        document.getElementById('longitude').value = marker.getLatLng().lng;
+    });
+  */
 
   attached() {
     if (!this.map) {

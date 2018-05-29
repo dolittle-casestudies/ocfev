@@ -1,4 +1,11 @@
-import { containerless } from 'aurelia-framework';
+import { containerless, inject } from 'aurelia-framework';
+import { VesselOrientationHub } from '../../VesselOrientationHub';
+
 
 @containerless()
-export class gravity {}
+@inject(VesselOrientationHub)
+export class gravity {
+  constructor(vesselOrientationHub) {
+    this.orientation = vesselOrientationHub;
+  }
+}
