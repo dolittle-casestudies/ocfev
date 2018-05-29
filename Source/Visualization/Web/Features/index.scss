@@ -2,9 +2,10 @@
 @import '../styles/Tools/all.scss';
 
 .dashboard_grid {
-  @include media-bp-min(tablet-landscape, 'orientation: landscape') {
+  @include media-bp-min(tablet, 'orientation: landscape') {
     align-items: stretch;
     display: grid;
+    grid-gap: $grid-gutter/2;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 20rem 20rem auto;
     grid-template-areas:
@@ -12,30 +13,28 @@
       'wind wind gravity gravity map map'
       'graphs graphs graphs graphs graphs graphs';
     height: 100%;
+    padding: $grid-gutter/2;
+  }
+  > section {
+    background-color: rgb(245, 245, 245);
   }
   .speed {
     grid-area: speed;
-    background-color: azure;
   }
   .throttle {
     grid-area: throttle;
-    background-color: cadetblue;
   }
   .wind {
-    background-color: burlywood;
     grid-area: wind;
   }
   .gravity {
     grid-area: gravity;
-    background-color: bisque;
   }
   .map {
     grid-area: map;
-    background-color: chartreuse;
   }
   .graphs {
     grid-area: graphs;
-    background-color: cornsilk;
     height: 100%;
   }
 }

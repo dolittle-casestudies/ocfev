@@ -12,7 +12,7 @@ main {
       align-items: flex-end;
       flex-direction: row;
       justify-content: space-between;
-      padding: $grid-gutter;
+      padding: $grid-gutter/2 $grid-gutter;
     }
   }
   .site-logo {
