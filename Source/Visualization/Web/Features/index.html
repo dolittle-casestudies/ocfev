@@ -1,43 +1,40 @@
 <template>
-    <require from="./index.scss"></require>
-    <div class="index dashboard_grid">
-        <section class="speed">
-            <!-- Speed on water -->
-            Full speed ahead!
-        </section>
-        <section class="throttle">
-            <!-- Kilowatt / Throttle -->
-            Full throttle!
-        </section>
+  <require from="./index.scss"></require>
+  <div class="index dashboard_grid">
+    <speed containerless></speed>
+    <section class="throttle">
+      <!-- Kilowatt / Throttle -->
+      Full throttle!
+    </section>
 
-        <!-- Friction -->
+    <!-- Friction -->
 
-        <section class="wind">
-            <!-- Wind speed / direction -->
-            Feel free to let your wind go here.
-        </section>
-        <section class="gravity">
-            <!-- Pitch / Yaw / Roll -->
-            <p>${orientation.gravityX}</p>
-            <p textcontent.bind="orientation.gravityY"></p>
-            <p textcontent.bind="orientation.gravityZ"></p>
-        </section>
-
-        
-
-        <section class="map">
-            <map containerless></map>
-        </section>
-        <section class="graphs">
-            <chart containerless title="Some Graph"></chart>
-        </section>
-
-        
-
-
-        
+    <section class="wind">
+      <!-- Wind speed / direction -->
+      Feel free to let your wind go here.
+    </section>
+    <section class="gravity">
+      <!-- Pitch / Yaw / Roll -->
+      <p>${orientation.gravityX}</p>
+      <p textcontent.bind="orientation.gravityY"></p>
+      <p textcontent.bind="orientation.gravityZ"></p>
+    </section>
 
 
 
-    </div>
+    <section class="map">
+      <map containerless></map>
+    </section>
+    <section class="graphs">
+      <chart containerless title="Some Graph"></chart>
+    </section>
+
+
+
+
+
+
+
+
+  </div>
 </template>

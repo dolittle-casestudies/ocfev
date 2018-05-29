@@ -1,0 +1,21 @@
+@import '../../../styles/Settings/all';
+.speed {
+  grid-area: speed;
+  text-align: center;
+  padding: $grid-gutter;
+
+  strong,
+  em {
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+  }
+  strong {
+    font-size: 7rem;
+    font-weight: 300;
+  }
+  em {
+    text-transform: uppercase;
+    letter-spacing: 0.125rem;
+    font-size: 1.75rem;
+  }
+}
