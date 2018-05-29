@@ -1,0 +1,12 @@
+.action_bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ccc;
+  height: 100%;
+  a.action_bar_button {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+  }
+}
