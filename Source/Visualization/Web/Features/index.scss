@@ -17,10 +17,14 @@
   }
   > section {
     background-color: rgb(245, 245, 245);
+    h1 {
+      font-size: 2rem;
+      text-transform: uppercase;
+      font-weight: 300;
+      letter-spacing: 0.0625rem;
+    }
   }
-  .speed {
-    grid-area: speed;
-  }
+
   .throttle {
     grid-area: throttle;
   }
