@@ -1,10 +1,30 @@
 @import '../../../styles/Settings/all.scss';
 @import '../../../styles/Tools/all.scss';
 .app_header {
-  position: relative;
+  width: 100vw;
   .content-box {
-    display: flex;
-    flex-direction: row;
     align-items: center;
+    border-radius: 0;
+    box-shadow: unset;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 0;
+    @include media-bp-min(tablet) {
+      align-items: stretch;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  .site-logo {
+    display: block;
+    max-width: 100%;
+    transition: 0.5s width;
+    width: 13rem;
+    padding: $grid-gutter/2 $grid-gutter;
+
+    svg {
+      max-width: 100%;
+    }
   }
 }

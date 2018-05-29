@@ -1,5 +1,9 @@
 <template>
-    <require from="./app.scss"></require>
+  <require from="./app.scss"></require>
+  <app-header containerless></app-header>
+  <main>
+    <router-view containerless></router-view>
+  </main>
+  <app-footer containerless></app-footer>
 
-    <router-view containerless layout-view="layout.html"></router-view>
 </template>
