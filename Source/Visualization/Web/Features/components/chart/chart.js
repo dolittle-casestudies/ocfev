@@ -4,17 +4,15 @@ import Chart from 'chart.js';
 export class chart {
   @bindable title;
 
-  constructor() {
-  }
+  constructor() {}
 
   attached() {
-
-    this._chart = new Chart(
-      this.chart_canvas, {
-        type: 'line',
-        data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [{
+    this._chart = new Chart(this.chart_canvas, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [
+          {
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
@@ -34,21 +32,20 @@ export class chart {
               'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
-          }]
-
-        },
-        options: {
-          scales: {
-            yAxes: [{
+          }
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
               ticks: {
                 beginAtZero: true
               }
-            }]
-          }
-
+            }
+          ]
         }
       }
-    )
+    });
   }
 }
-

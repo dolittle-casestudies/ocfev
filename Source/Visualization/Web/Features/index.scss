@@ -1,42 +1,41 @@
 @import '../styles/Settings/all.scss';
 @import '../styles/Tools/all.scss';
 
-.index {
-}
 .dashboard_grid {
-    @include media-bp-min(tablet-landscape, 'orientation: landscape') {
-        align-items: stretch;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr auto;
-        grid-template-areas:
-            'speed speed speed throttle throttle throttle'
-            'wind wind gravity gravity map map'
-            'graphs graphs graphs graphs graphs graphs';
-        height: 100%;
-    }
-    .speed {
-        grid-area: speed;
-        background-color: azure;
-    }
-    .throttle {
-        grid-area: throttle;
-        background-color: cadetblue;
-    }
-    .wind {
-        background-color: burlywood;
-        grid-area: wind;
-    }
-    .gravity {
-        grid-area: gravity;
-        background-color: bisque;
-    }
-    .map {
-        grid-area: map;
-        background-color: chartreuse;
-    }
-    .graphs {
-        grid-area: graphs;
-        background-color: cornsilk;
-    }
+  @include media-bp-min(tablet-landscape, 'orientation: landscape') {
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 20rem 20rem auto;
+    grid-template-areas:
+      'speed speed speed throttle throttle throttle'
+      'wind wind gravity gravity map map'
+      'graphs graphs graphs graphs graphs graphs';
+    height: 100%;
+  }
+  .speed {
+    grid-area: speed;
+    background-color: azure;
+  }
+  .throttle {
+    grid-area: throttle;
+    background-color: cadetblue;
+  }
+  .wind {
+    background-color: burlywood;
+    grid-area: wind;
+  }
+  .gravity {
+    grid-area: gravity;
+    background-color: bisque;
+  }
+  .map {
+    grid-area: map;
+    background-color: chartreuse;
+  }
+  .graphs {
+    grid-area: graphs;
+    background-color: cornsilk;
+    height: 100%;
+  }
 }
