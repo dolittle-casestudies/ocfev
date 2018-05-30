@@ -17,7 +17,7 @@ import numpy as np
 from keras.models import model_from_json
 import tensorflow as tf
 
-TEMPERATURE_THRESHOLD = 25
+AR_THRESHOLD = 0
 TWIN_CALLBACKS = 0
 
 # messageTimeout - the maximum time in milliseconds until a message times out.
@@ -96,23 +96,28 @@ def receive_message_callback(message, hubManager):
 
 
     print("Model prediction placeholder")
-    shipdata_raw = [   data["angle_wind_relative"],
-                            data["depth"],
-                            data["list"],
-                            data["power"],
-                            data["sog"],
-                            data["relative_windspeed"],
-                            data["stw"],
-                            data["trim"]]
+    shipdata_raw = [    data["angle_wind_relative"],
+                        data["depth"],
+                        data["list"],
+                        data["power"],
+                        data["sog"],
+                        data["relative_windspeed"],
+                        data["stw"],
+                        data["trim"]]
 
     shipdata = scale_input(shipdata_raw)
     with graph.as_default():
-        ar_pred = model.predict(shipdata, verbose=1)
+        AR_pred = model.predict(shipdata)#, verbose=1)
+        ar_pred = AR_pred[0][0]
+    print("Predicted value {}".format(ar_pred))
 
-    print("Custom message from predicted sklearn model {}".format(ar_pred))
+    alert_message = json.dumps({"type": "Alert 1"}) #, sort_keys=True, indent = 4, separators = (',', ': '))
 
-#old code from sample, irrelevant, delete aftewards:
+    if ar_pred > AR_THRESHOLD :
+        print("Alert")
+        hubManager.forward_event_to_output("Alerts", IoTHubMessage(alert_message), 0)
 
+    #old code from sample, irrelevant, delete aftewards:
     #map_properties = message.properties()
     #key_value_pair = map_properties.get_internals()
     #print("    Properties: {}".format(key_value_pair))
@@ -120,7 +125,8 @@ def receive_message_callback(message, hubManager):
     #   map_properties.add("MessageType", "Alert")
     #   print("Machine temperature {} exceeds threshold {}".format(data["machine"]["temperature"], TEMPERATURE_THRESHOLD))
 
-    hubManager.forward_event_to_output("output1", message, 0)
+    #hubManager.forward_event_to_output("output1", message, 0)
+
     return IoTHubMessageDispositionResult.ACCEPTED
 
 # device_twin_callback is invoked when twin's desired properties are updated.
@@ -150,7 +156,7 @@ class HubManager(object):
         
         # sets the callback when a message arrives on "input1" queue.  Messages sent to 
         # other inputs or to the default will be silently discarded.
-        self.client.set_message_callback("input1", receive_message_callback, self)
+        self.client.set_message_callback("mlinput", receive_message_callback, self)
 
         # sets the callback when a twin's desired properties are updated.
         self.client.set_device_twin_callback(device_twin_callback, self)
