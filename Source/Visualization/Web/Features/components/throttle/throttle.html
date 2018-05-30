@@ -2,5 +2,19 @@
   <require from="./throttle.scss"></require>
   <section class="throttle">
     <h1>Throttle</h1>
+    <div class="engines">
+      <div class="engine">
+        <label>Engine A
+          <input type="range" class="vertical-slider" step="10" min="0" max="100" value.two-way="engine_a_throttle">
+        </label>
+        <span>${engine_a_throttle}%</span>
+      </div>
+      <div class="engine">
+        <label>Engine B
+          <input type="range" class="vertical-slider" step="10" min="0" max="100" value.two-way="engine_b_throttle">
+        </label>
+        <span>${engine_b_throttle}%</span>
+      </div>
+    </div>
   </section>
 </template>
