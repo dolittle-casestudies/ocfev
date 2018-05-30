@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\ExternalEvents\ExternalEvents.csproj" />
     <ProjectReference Include="..\Read\Read.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Kafka.BoundedContexts\Kafka.BoundedContexts.csproj" />

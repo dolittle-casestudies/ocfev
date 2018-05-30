@@ -9,14 +9,17 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 20rem 20rem auto;
     grid-template-areas:
-      'speed speed speed throttle throttle throttle'
-      'wind wind gravity gravity map map'
+      'speed speed speed map map map'
+      'throttle throttle wind wind gravity gravity'
       'graphs graphs graphs graphs graphs graphs';
     height: 100%;
     padding: $grid-gutter/2;
   }
   > section {
     background-color: rgb(245, 245, 245);
+    padding: $grid-gutter;
+    text-align: center;
+
     h1 {
       font-size: 2rem;
       text-transform: uppercase;
@@ -25,18 +28,6 @@
     }
   }
 
-  .throttle {
-    grid-area: throttle;
-  }
-  .wind {
-    grid-area: wind;
-  }
-  .gravity {
-    grid-area: gravity;
-  }
-  .map {
-    grid-area: map;
-  }
   .graphs {
     grid-area: graphs;
     height: 100%;

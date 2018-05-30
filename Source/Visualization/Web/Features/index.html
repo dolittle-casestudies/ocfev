@@ -1,32 +1,17 @@
 <template>
   <require from="./index.scss"></require>
   <div class="index dashboard_grid">
-    <speed containerless></speed>
-    <section class="throttle">
-      <!-- Kilowatt / Throttle -->
-      Full throttle!
-    </section>
+    <speed></speed>
+    <throttle></throttle>
 
-    <!-- Friction -->
-
-    <section class="wind">
-      <!-- Wind speed / direction -->
-      Feel free to let your wind go here.
-    </section>
-    <section class="gravity">
-      <!-- Pitch / Yaw / Roll -->
-      <p>${orientation.gravityX}</p>
-      <p textcontent.bind="orientation.gravityY"></p>
-      <p textcontent.bind="orientation.gravityZ"></p>
-    </section>
+    <wind></wind>
+    <gravity></gravity>
 
 
-
-    <section class="map">
-      <map containerless></map>
-    </section>
+      <map></map>
     <section class="graphs">
-      <chart containerless title="Some Graph"></chart>
+      <!-- Friction -->
+      <chart title="Some Graph"></chart>
     </section>
 
 

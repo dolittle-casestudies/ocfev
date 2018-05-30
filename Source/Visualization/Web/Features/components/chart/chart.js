@@ -1,6 +1,7 @@
-import { bindable } from 'aurelia-framework';
+import { containerless, bindable } from 'aurelia-framework';
 import Chart from 'chart.js';
 
+@containerless()
 export class chart {
   @bindable title;
 
