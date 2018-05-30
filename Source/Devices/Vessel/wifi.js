@@ -8,5 +8,3 @@ wifi.scan(function(ap_list) {
     console.log("Connected : "+ap);
   });  
 });
-
-
