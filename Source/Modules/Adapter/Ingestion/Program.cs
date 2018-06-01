@@ -19,16 +19,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Ingestion
 {
-
     class Program
     {
         static void Main(string[] args)
         {
             // Cert verification is not yet fully functional when using Windows OS for the container
-            var bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-            if (!bypassCertVerification) InstallCert();
+            //var bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            //if (!bypassCertVerification) InstallCert();
 
             // Wait until the app unloads or is cancelled
+            Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_TOPIC","adapter");
             Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_SEND_TOPICS","visualization");
             Globals.BoundedContext = new BoundedContext("ingestion");
             var host = Host.CreateBuilder("OCFEV")
