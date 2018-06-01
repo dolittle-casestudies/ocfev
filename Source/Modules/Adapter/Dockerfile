@@ -4,7 +4,8 @@ WORKDIR /app
 ADD ./NuGet.Config ./
 ADD ./Modules/Adapter ./Modules/Adapter
 ADD ./Infrastructure ./Infrastructure
-RUN dotnet publish ./Modules/Adapter/Ingestion/ -c Release -o /app/out
+RUN dotnet restore --ignore-failed-sources ./Modules/Adapter/Ingestion/
+RUN dotnet publish ./Modules/Adapter/Ingestion/ --no-restore -c Release -o /app/out
 
 FROM microsoft/dotnet:2.0-runtime
 WORKDIR /app
