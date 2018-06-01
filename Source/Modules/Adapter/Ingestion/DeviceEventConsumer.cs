@@ -69,24 +69,32 @@ namespace Ingestion
             }
         }
 
-        static EventSourceId vesselId = (EventSourceId)Guid.Parse("5477464f-d3af-4526-abe0-e6eccab97bcb");
+        static EventSourceId vesselId = (EventSourceId) Guid.Parse("5477464f-d3af-4526-abe0-e6eccab97bcb");
 
         Task<MessageResponse> VesselOrientationMessageReceived(Message message, object userContext)
         {
             // FROM /messages/modules/MQTT-IOT-EDGE/outputs/VesselOrientation INTO BrokeredEndpoint(\"/modules/Ingestion/inputs/VesselOrientation\")"
-            Console.WriteLine("Vessel Orientation Message received");
-
-            var messageBytes = message.GetBytes();
-            var messageString = Encoding.UTF8.GetString(messageBytes);
-
-            Console.WriteLine("Message : " + messageString);
-            var orientation = _serializer.FromJson<VesselOrientation>(messageString);
-
-            using(_deviceRequests.Begin())
+            // "fromMQTTToIngestionVesselorientation": "FROM /messages/modules/MQTT-IOT-EDGE/outputs/VesselOrientation INTO BrokeredEndpoint(\"/modules/Ingestion/inputs/VesselOrientation\")"
+            try
             {
-                var vessel = _vesselRepository.Get(vesselId);
-                Console.WriteLine("Changing gravity");
-                vessel.ChangeGravity(orientation.Gravity);
+                Console.WriteLine("Vessel Orientation Message received");
+
+                var messageBytes = message.GetBytes();
+                var messageString = Encoding.UTF8.GetString(messageBytes);
+
+                Console.WriteLine("Message : " + messageString);
+                var orientation = _serializer.FromJson<VesselOrientation>(messageString);
+
+                using(_deviceRequests.Begin())
+                {
+                    var vessel = _vesselRepository.Get(vesselId);
+                    Console.WriteLine("Changing gravity");
+                    vessel.ChangeGravity(orientation.Gravity);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception : " + ex.Message + "\n" + ex.StackTrace);
             }
 
             return Task.FromResult(MessageResponse.Completed);
@@ -95,6 +103,7 @@ namespace Ingestion
         Task<MessageResponse> MessageReceived(Message message, object userContext)
         {
             // Route: "DeviceIngestion": "FROM /* INTO BrokeredEndpoint(\"/modules/Ingestion/inputs/DeviceIngestion\")",
+            // "fromMQTTToIngestionDeviceIngestion": "FROM /messages/modules/MQTT-IOT-EDGE/outputs/Telemetry INTO BrokeredEndpoint(\"/modules/Ingestion/inputs/DeviceIngestion\")",
 
             /*
             if( !message.Properties.ContainsKey("MessageType") ) return Task.FromResult(MessageResponse.Completed);
@@ -102,20 +111,27 @@ namespace Ingestion
             */
 
             //_typeFinder.All.SingleOrDefault
-
-            Console.WriteLine("Message received");
-
-            var messageBytes = message.GetBytes();
-            var messageString = Encoding.UTF8.GetString(messageBytes);
-
-            Console.WriteLine("Message : " + messageString);
-            var engineTelemetry = _serializer.FromJson<Telemetry>(messageString);
-
-            using(_deviceRequests.Begin())
+            try
             {
-                var vessel = _vesselRepository.Get(vesselId);
-                Console.WriteLine("Changing power");
-                vessel.ChangePower(engineTelemetry.power);
+
+                Console.WriteLine("Message received");
+
+                var messageBytes = message.GetBytes();
+                var messageString = Encoding.UTF8.GetString(messageBytes);
+
+                Console.WriteLine("Message : " + messageString);
+                var engineTelemetry = _serializer.FromJson<Telemetry>(messageString);
+
+                using(_deviceRequests.Begin())
+                {
+                    var vessel = _vesselRepository.Get(vesselId);
+                    Console.WriteLine("Changing power");
+                    vessel.ChangePower(engineTelemetry.power);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception : " + ex.Message + "\n" + ex.StackTrace);
             }
 
             return Task.FromResult(MessageResponse.Completed);
