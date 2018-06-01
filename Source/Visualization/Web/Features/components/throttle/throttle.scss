@@ -1,3 +1,120 @@
+$track-w: 7rem;
+$track-h: 0.75rem;
+$thumb-d: 2.5rem;
+
+@mixin track() {
+  box-sizing: border-box;
+  border: none;
+  width: $track-w;
+  height: $track-h;
+  background: #aaa;
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+@mixin thumb() {
+  box-sizing: border-box;
+  border: none;
+  width: $thumb-d/2;
+  height: $thumb-d;
+  border-radius: 0.3125rem;
+  background: #004366;
+}
+
 .throttle {
   grid-area: throttle;
+  h1 {
+    margin-bottom: 0;
+  }
+  .engines {
+    display: flex;
+    justify-content: center;
+    .engine {
+      position: relative;
+      strong {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: normal;
+      }
+      &:first-child {
+        strong {
+          right: auto;
+          left: -2rem;
+        }
+      }
+
+      [type='range'] {
+        &,
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+        }
+
+        margin: $track-w/2 0;
+        transform: rotate(-90deg);
+        outline: none;
+        padding: 0;
+        width: $track-w;
+        height: $thumb-d;
+        background: transparent;
+        font: 1em/1 arial, sans-serif;
+
+        &::-webkit-slider-runnable-track {
+          @include track;
+        }
+        &::-moz-range-track {
+          @include track;
+        }
+        &::-ms-track {
+          @include track;
+        }
+
+        &::-webkit-slider-thumb {
+          margin-top: -0.85rem;
+          @include thumb;
+        }
+        &::-moz-range-thumb {
+          @include thumb;
+        }
+        &::-ms-thumb {
+          margin-top: 0;
+          @include thumb;
+        }
+        &::-ms-tooltip {
+          display: none;
+        }
+      }
+    }
+    &.connected {
+      [type='range'] {
+        $connected-width: $thumb-d * 2.1;
+        &::-webkit-slider-thumb {
+          height: $connected-width;
+        }
+        &::-moz-range-thumb {
+          height: $connected-width;
+        }
+        &::-ms-thumb {
+          height: $connected-width;
+        }
+      }
+      .engine:nth-child(2) {
+        [type='range'] {
+          &::-webkit-slider-thumb {
+            margin-top: -3.6rem;
+          }
+          &::-moz-range-thumb {
+            margin-top: -3.6rem;
+          }
+          &::-ms-thumb {
+            margin-top: -3.6rem;
+          }
+        }
+      }
+    }
+  }
+  .connection_option {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    padding: 1rem;
+  }
 }

@@ -2,5 +2,22 @@
   <require from="./throttle.scss"></require>
   <section class="throttle">
     <h1>Throttle</h1>
+    <div class="engines ${engines_connected?'connected':''}">
+      <div class="engine">
+        <strong>${engine_a_throttle}%</strong>
+        <input type="range" class="vertical-slider" step="10" min="0" max="100" value.bind="engine_a_throttle">
+        <label>Engine A </label>
+      </div>
+      <div class="engine">
+        <strong>${engine_b_throttle}%</strong>
+        <input type="range" class="vertical-slider" step="10" min="0" max="100" value.bind="engine_b_throttle">
+        <label>Engine B </label>
+      </div>
+    </div>
+    <div class="connection_option">
+      <label>Engines connected
+        <input type="checkbox" name="connected" checked.bind="engines_connected">
+      </label>
+    </div>
   </section>
 </template>
