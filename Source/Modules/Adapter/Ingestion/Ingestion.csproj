@@ -25,6 +25,8 @@
     <PackageReference Include="Dolittle.SDK.Hosting" Version="2.0.0-alpha2*" />
 
     <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.6.0-preview-001" />
+
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
