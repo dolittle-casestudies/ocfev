@@ -21,7 +21,6 @@ namespace Web
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_TOPIC","visualization");
             CreateWebHostBuilder(args).Build().Run();
         }
 
@@ -33,28 +32,3 @@ namespace Web
                 .UseStartup<Startup>();
     }
 }
-
-/*
-using System;
-using Dolittle.Hosting;
-using Dolittle.Applications;
-using Infrastructure.Kafka.BoundedContexts;
-
-namespace Web
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Starting");
-            Globals.BoundedContext = new BoundedContext("visualization");
-            Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_TOPIC","visualization");
-            var host = Host.CreateBuilder("OCFEV").Build();
-
-            BoundedContextListener.Start(host.Container);
-
-            host.Run();
-        }
-    }
-}
-*/
