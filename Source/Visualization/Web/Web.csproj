@@ -61,7 +61,6 @@
 
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.0.0" />
-    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
