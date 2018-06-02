@@ -3,7 +3,7 @@ using System.Text;
 using Dolittle.Serialization.Json;
 using Microsoft.Azure.Devices.Client;
 
-namespace MQTT
+namespace Entry
 {
     public class TelemetryCoordinator : ITelemetryCoordinator
     {

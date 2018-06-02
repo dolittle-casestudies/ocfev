@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace MQTT
+namespace Entry
 {
     public class VesselOrientation
     {

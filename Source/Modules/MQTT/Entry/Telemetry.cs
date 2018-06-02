@@ -1,6 +1,6 @@
 using System;
 
-namespace MQTT
+namespace Entry
 {
     public class Telemetry
     {

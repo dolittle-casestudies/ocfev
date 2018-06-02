@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTT", "MQTT\MQTT.csproj", "{66B50A6C-B65C-4FDC-9CEF-8D660EA765D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consolse", "MQTT\Console\Console.csproj", "{66B50A6C-B65C-4FDC-9CEF-8D660EA765D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ingestion", "Adapter\Ingestion\Ingestion.csproj", "{7EC07E61-C1E8-4D14-9CA7-352AA03D3EF9}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapter", "Adapter", "{86DD39B8-DAE1-4BA1-8AB3-44D0749C4A47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalEvents", "Adapter\ExternalEvents\ExternalEvents.csproj", "{08588A63-841A-41B3-9B7D-73E492938809}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MQTT", "MQTT", "{6C92DB75-5B86-4839-B5EF-43D4890DDA62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalEvents", "MQTT\ExternalEvents\ExternalEvents.csproj", "{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,8 +92,21 @@ Global
 		{08588A63-841A-41B3-9B7D-73E492938809}.Release|x64.Build.0 = Release|Any CPU
 		{08588A63-841A-41B3-9B7D-73E492938809}.Release|x86.ActiveCfg = Release|Any CPU
 		{08588A63-841A-41B3-9B7D-73E492938809}.Release|x86.Build.0 = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|x64.Build.0 = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{08588A63-841A-41B3-9B7D-73E492938809} = {86DD39B8-DAE1-4BA1-8AB3-44D0749C4A47}
+		{4A7A6CEB-9374-47BA-8DA5-D54AD5FE7795} = {6C92DB75-5B86-4839-B5EF-43D4890DDA62}
 	EndGlobalSection
 EndGlobal

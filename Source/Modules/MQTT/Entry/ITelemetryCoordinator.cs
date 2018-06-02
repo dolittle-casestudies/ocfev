@@ -1,4 +1,4 @@
-namespace MQTT
+namespace Entry
 {
     public interface ITelemetryCoordinator
     {

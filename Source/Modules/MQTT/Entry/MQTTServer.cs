@@ -7,7 +7,7 @@ using MQTTnet;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 
-namespace MQTT
+namespace Entry
 {
     public class MQTTServer : IMQTTServer
     {

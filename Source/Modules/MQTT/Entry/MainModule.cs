@@ -3,7 +3,7 @@ using Dolittle.DependencyInversion;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 
-namespace MQTT
+namespace Entry
 {
     public class MainModule : ICanProvideBindings
     {

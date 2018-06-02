@@ -4,7 +4,7 @@ using Dolittle.Events.Processing;
 using Dolittle.Logging;
 using ExternalEvents.Vessels;
 
-namespace Read.Vessels
+namespace Ingestion.Vessels
 {
     public class ThrottleEventProcessors : ICanProcessEvents
     {

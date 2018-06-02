@@ -12,12 +12,27 @@
     <PackageReference Include="Dolittle.DependencyInversion.Autofac" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.DependencyInversion.Bootstrap" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.DependencyInversion.Conventions" Version="2.0.0-alpha2*" />
-    
+
+    <PackageReference Include="Dolittle.Serialization.Json" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Runtime.Events.Serialization.Json" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Applications.Serialization.Json" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Concepts.Serialization.Json" Version="2.0.0-alpha2*" />
+
+    <PackageReference Include="Dolittle.SDK.Events.Storage" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.SDK.Events.Processing" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.SDK.Domain" Version="2.0.0-alpha2*" />
+
     <PackageReference Include="Dolittle.SDK.Hosting" Version="2.0.0-alpha2*" />
 
     <PackageReference Include="MQTTNet" Version="2.7.4" />
     <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.6.0-preview-001" />
-    
+
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructure\Kafka.BoundedContexts\Kafka.BoundedContexts.csproj" />
+    <ProjectReference Include="..\ExternalEvents\ExternalEvents.csproj" />
   </ItemGroup>
 
 </Project>

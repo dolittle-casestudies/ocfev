@@ -1,18 +1,19 @@
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Loader;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System;
-using Microsoft.Azure.Devices.Client.Transport.Mqtt;
-using Microsoft.Azure.Devices.Client;
-using System.Diagnostics;
-using Dolittle.Hosting;
+using System.Threading.Tasks;
 using Dolittle.Applications;
+using Dolittle.Hosting;
+using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Client.Transport.Mqtt;
+using Microsoft.Extensions.Logging;
 
-namespace MQTT
+namespace Entry
 {
 
     class Program
@@ -23,17 +24,25 @@ namespace MQTT
             bool bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             if (!bypassCertVerification) InstallCert();
 
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
+
             // Wait until the app unloads or is cancelled
+            Globals.BoundedContext = new BoundedContext("mqtt");
             var host = Host.CreateBuilder("OCFEV")
                 .Application(application_builder =>
                     application_builder
-                    .PrefixLocationsWith(new BoundedContext("MQTT"))
-                    .WithStructureStartingWith<BoundedContext>(_ => _)
+                    .PrefixLocationsWith(Globals.BoundedContext)
+                    .WithStructureStartingWith<BoundedContext>(_ => _
+                        .Required.WithChild<Feature>(f => f
+                            .WithChild<SubFeature>(c => c.Recursive)
+                        )
+                    )
                 )
-                .Build();
+                .Build(loggerFactory);
 
             host.Container.Get<IMQTTServer>().Start();
-            
+
             Console.WriteLine("Started MQTT Server");
 
             var cts = new CancellationTokenSource();
@@ -59,7 +68,7 @@ namespace MQTT
         static void InstallCert()
         {
             var certPath = Environment.GetEnvironmentVariable("EdgeModuleCACertificateFile");
-            Console.WriteLine("Certificate : "+certPath);
+            Console.WriteLine("Certificate : " + certPath);
 
             if (string.IsNullOrWhiteSpace(certPath))
             {
@@ -67,7 +76,8 @@ namespace MQTT
                 // We cannot proceed further without a proper cert file
                 Console.WriteLine($"Missing path to certificate collection file: {certPath}");
                 throw new InvalidOperationException("Missing path to certificate file.");
-            } else if (!File.Exists(certPath))
+            }
+            else if (!File.Exists(certPath))
             {
                 // We cannot proceed further without a proper cert file
                 Console.WriteLine($"Missing path to certificate collection file: {certPath}");
