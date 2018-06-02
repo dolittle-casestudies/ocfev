@@ -16,6 +16,7 @@ using Kafka;
 using Dolittle.Domain;
 using Domain;
 using Microsoft.Extensions.Logging;
+using Dolittle.Runtime.Events.Coordination;
 
 namespace Ingestion
 {
@@ -26,6 +27,9 @@ namespace Ingestion
             // Cert verification is not yet fully functional when using Windows OS for the container
             //var bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             //if (!bypassCertVerification) InstallCert();
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
 
             // Wait until the app unloads or is cancelled
             Environment.SetEnvironmentVariable("KAFKA_BOUNDED_CONTEXT_TOPIC","adapter");
@@ -41,10 +45,16 @@ namespace Ingestion
                         )
                     )
                 )
-                .Build(); 
+                .Build(loggerFactory);
 
             BoundedContextListener.Start(host.Container);
+
+            var committedEventStreamCoordinator = host.Container.Get<ICommittedEventStreamCoordinator>();
+            committedEventStreamCoordinator.Initialize();
+            
             host.Container.Get<IDeviceEventConsumer>().Start().Wait();
+
+
 
             var cts = new CancellationTokenSource();
             AssemblyLoadContext.Default.Unloading += (ctx) => cts.Cancel();
