@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: visualization
+  namespace: ocfev
+spec:
+  rules:
+  - host: ocfev.dolittle.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: visualization
+          servicePort: 80

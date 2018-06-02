@@ -1,0 +1,24 @@
+---
+  kind: Deployment
+  apiVersion: extensions/v1beta1
+  metadata:
+    name: visualization
+    namespace: ocfev
+  spec:
+    template:
+      metadata:
+        labels:
+          app: visualization
+          name: visualization
+      spec:
+        containers:
+        - name: visualization
+          image: dolittle/ocfev-visualization
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+          env:
+            - name: KAFKA_BOUNDED_CONTEXT_SEND_TOPICS
+              value: "adapter"
+            - name: KAFKA_BOUNDED_CONTEXT_TOPIC
+              value: "visualization"
