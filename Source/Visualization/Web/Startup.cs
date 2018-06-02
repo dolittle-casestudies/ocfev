@@ -30,7 +30,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using Infrastructure.Kafka.BoundedContexts;
-
+using Microsoft.Extensions.Logging;
 
 namespace Web
 {
@@ -41,17 +41,20 @@ namespace Web
     public partial class Startup
     {
         readonly IHostingEnvironment _hostingEnvironment;
+        readonly ILoggerFactory _loggerFactory;
         IServiceProvider _serviceProvider;
 
         BootResult _bootResult;
+        
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public Startup(IHostingEnvironment hostingEnvironment)
+        public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
         {
             _hostingEnvironment = hostingEnvironment;
+            _loggerFactory = loggerFactory;
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace Web
             services.AddCors();
             services.AddMvc();
 
-            _bootResult = services.AddDolittle();
+            _bootResult = services.AddDolittle(_loggerFactory);
         }
 
         /// <summary>
