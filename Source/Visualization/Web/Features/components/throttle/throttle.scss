@@ -1,6 +1,7 @@
 $track-w: 7rem;
 $track-h: 0.75rem;
 $thumb-d: 2.5rem;
+$connected-width: $thumb-d * 2.1;
 
 @mixin track() {
   box-sizing: border-box;
@@ -19,8 +20,11 @@ $thumb-d: 2.5rem;
   height: $thumb-d;
   border-radius: 0.3125rem;
   background: #004366;
+  transition: all 0.2s;
 }
-
+@mixin connected_thumb() {
+  height: $connected-width;
+}
 .throttle {
   grid-area: throttle;
   h1 {
@@ -29,8 +33,8 @@ $thumb-d: 2.5rem;
   .engines {
     display: flex;
     justify-content: center;
+    position: relative;
     .engine {
-      position: relative;
       strong {
         display: block;
         font-size: 1.5rem;
@@ -86,26 +90,26 @@ $thumb-d: 2.5rem;
     }
     &.connected {
       [type='range'] {
-        $connected-width: $thumb-d * 2.1;
         &::-webkit-slider-thumb {
-          height: $connected-width;
+          @include connected_thumb();
         }
         &::-moz-range-thumb {
-          height: $connected-width;
+          @include connected_thumb();
         }
         &::-ms-thumb {
-          height: $connected-width;
+          @include connected_thumb();
         }
-      }
-      .engine:nth-child(2) {
-        [type='range'] {
+        &.right {
           &::-webkit-slider-thumb {
             margin-top: -3.6rem;
+            transform-origin: bottom;
           }
           &::-moz-range-thumb {
+            transform-origin: bottom;
             margin-top: -3.6rem;
           }
           &::-ms-thumb {
+            transform-origin: bottom;
             margin-top: -3.6rem;
           }
         }
@@ -113,8 +117,23 @@ $thumb-d: 2.5rem;
     }
   }
   .connection_option {
-    font-size: 0.625rem;
     text-transform: uppercase;
-    padding: 1rem;
+    position: absolute;
+    top: 0;
+    input {
+      -webkit-appearance: none;
+      outline: none;
+      &:after {
+        background: url('./SVG/unchained.svg') no-repeat center center;
+        background-size: contain;
+        content: '';
+        display: block;
+        width: 3rem;
+        height: 1.6rem;
+      }
+      &:checked:after {
+        background-image: url('./SVG/chained.svg');
+      }
+    }
   }
 }
