@@ -10,13 +10,13 @@ $angle_marker_distance_to_edge: -0.25rem;
   .text {
     margin-right: $grid-gutter;
   }
-  
+
   .content {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .circle {
     border: 0.125rem solid $color-brand-grey;
     border-radius: 50%;
@@ -35,7 +35,7 @@ $angle_marker_distance_to_edge: -0.25rem;
     transform: translate(-50%, -50%);
     width: 2rem;
   }
-  
+
   .wind-arrow {
     $wind-arrow-height: 9rem;
     background-color: $color-brand-orange;
@@ -45,6 +45,7 @@ $angle_marker_distance_to_edge: -0.25rem;
     margin-top: -$wind-arrow-height/2;
     position: absolute;
     top: 50%;
+    transition: transform 0.2s;
     width: 0.25rem;
     &:before,
     &:after {
