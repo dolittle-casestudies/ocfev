@@ -26,9 +26,9 @@ $angle_marker_distance_to_edge: -0.25rem;
     width: 11rem;
   }
   .vessel {
-    background-color: rgb(245, 245, 245);
-    border: 0.125rem solid $color-brand-grey;
-    height: 6rem;
+    background:url('./vessel.svg') no-repeat center;
+    //border: 0.125rem solid $color-brand-grey;
+    height: 6.6875rem;
     left: 50%;
     position: absolute;
     top: 50%;
@@ -54,7 +54,7 @@ $angle_marker_distance_to_edge: -0.25rem;
       display: block;
       height: 1rem;
       top: 0;
-      left: 0;
+      left: 0.0625rem;
       position: absolute;
       transform: rotate(45deg);
       transform-origin: top;
@@ -63,7 +63,7 @@ $angle_marker_distance_to_edge: -0.25rem;
     &:after {
       transform: rotate(-45deg);
       left: auto;
-      right: 0;
+      right: 0.0625rem;
     }
   }
 
@@ -74,7 +74,7 @@ $angle_marker_distance_to_edge: -0.25rem;
     position: absolute;
     &:after {
       content: '';
-      background-color: $color-brand-grey;
+      background-color: lighten($color-brand-grey,30%);
       position: absolute;
       display: block;
     }
