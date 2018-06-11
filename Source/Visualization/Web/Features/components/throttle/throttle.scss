@@ -73,15 +73,15 @@ $connected-width: $thumb-d * 2.1;
         }
 
         &::-webkit-slider-thumb {
-          margin-top: -0.85rem;
           @include thumb;
+          margin-top: -0.85rem;
         }
         &::-moz-range-thumb {
           @include thumb;
         }
         &::-ms-thumb {
-          margin-top: 0;
           @include thumb;
+          margin-top: 0;
         }
         &::-ms-tooltip {
           display: none;
@@ -95,6 +95,7 @@ $connected-width: $thumb-d * 2.1;
         }
         &::-moz-range-thumb {
           @include connected_thumb();
+          transform: translateY(1.4rem);
         }
         &::-ms-thumb {
           @include connected_thumb();
@@ -106,7 +107,7 @@ $connected-width: $thumb-d * 2.1;
           }
           &::-moz-range-thumb {
             transform-origin: bottom;
-            margin-top: -3.6rem;
+            transform: translateY(-1.4rem);
           }
           &::-ms-thumb {
             transform-origin: bottom;
