@@ -1,4 +1,130 @@
+@import '../../../styles/Settings/all';
 
-  .wind {
-    grid-area: wind;
+$angle_marker_distance_to_edge: -0.25rem;
+.wind {
+  grid-area: wind;
+  h2 {
+    margin-bottom: 0;
+    font-size: 3rem;
   }
+  .text {
+    margin-right: $grid-gutter;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .circle {
+    border: 0.125rem solid $color-brand-grey;
+    border-radius: 50%;
+    height: 11rem;
+    margin-left: $grid-gutter * 2;
+    position: relative;
+    width: 11rem;
+  }
+  .vessel {
+    background-color: rgb(245, 245, 245);
+    border: 0.125rem solid $color-brand-grey;
+    height: 6rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+  }
+  
+  .wind-arrow {
+    $wind-arrow-height: 9rem;
+    background-color: $color-brand-orange;
+    height: $wind-arrow-height;
+    left: 50%;
+    margin-left: -0.125rem;
+    margin-top: -$wind-arrow-height/2;
+    position: absolute;
+    top: 50%;
+    width: 0.25rem;
+    &:before,
+    &:after {
+      content: '';
+      background-color: $color-brand-orange;
+      display: block;
+      height: 1rem;
+      top: 0;
+      left: 0;
+      position: absolute;
+      transform: rotate(45deg);
+      transform-origin: top;
+      width: 0.25rem;
+    }
+    &:after {
+      transform: rotate(-45deg);
+      left: auto;
+      right: 0;
+    }
+  }
+
+  .angle_0,
+  .angle_90,
+  .angle_180,
+  .angle_270 {
+    position: absolute;
+    &:after {
+      content: '';
+      background-color: $color-brand-grey;
+      position: absolute;
+      display: block;
+    }
+  }
+  .angle_0,
+  .angle_180 {
+    left: 50%;
+    &:after {
+      width: 0.0625rem;
+      height: 6rem;
+    }
+  }
+  .angle_90,
+  .angle_270 {
+    top: 50%;
+    &:after {
+      height: 0.0625rem;
+      width: 6rem;
+    }
+  }
+  .angle_0 {
+    left: 50%;
+    top: $angle_marker_distance_to_edge;
+    transform: translate(-50%, -100%);
+    &:after {
+      left: 50%;
+      top: 100%;
+    }
+  }
+  .angle_90 {
+    right: $angle_marker_distance_to_edge;
+    transform: translate(100%, -50%);
+    &:after {
+      right: 100%;
+      top: 50%;
+    }
+  }
+  .angle_180 {
+    bottom: $angle_marker_distance_to_edge;
+    transform: translate(-50%, 100%);
+    &:after {
+      bottom: 100%;
+      left: 50%;
+    }
+  }
+  .angle_270 {
+    left: $angle_marker_distance_to_edge;
+    transform: translate(-100%, -50%);
+    &:after {
+      left: 100%;
+      top: 50%;
+    }
+  }
+}

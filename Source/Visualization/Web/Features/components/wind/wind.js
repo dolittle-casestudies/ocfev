@@ -1,4 +1,7 @@
-import { containerless } from 'aurelia-framework';
+import { containerless, observable } from 'aurelia-framework';
 
 @containerless()
-export class wind {}
+export class wind {
+  @observable wind_knots = "4,3";
+  @observable wind_orientation=300;
+}

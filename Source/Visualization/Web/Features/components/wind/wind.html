@@ -1,21 +1,22 @@
 <template>
   <require from="./wind.scss"></require>
   <section class="wind">
-    <!-- Wind speed / direction -->
     <h1>
       Wind
     </h1>
-    <strong>4,3</strong>
-    <em>knots</em>
-    <div class="circle">
-      <div class="angle_0">0</div>
-      <div class="angle_90">90</div>
-      <div class="angle_180">180</div>
-      <div class="angle_270">270</div>
-
-      <div class="vessel"></div>
-      <div class="wind-arrow"></div>
-
+    <div class="content">
+      <div class="text">
+        <h2>${wind_knots}</h2>
+        <em>knots</em>
+      </div>
+      <div class="circle">
+        <div class="angle_0">0</div>
+        <div class="angle_90">90</div>
+        <div class="angle_180">180</div>
+        <div class="angle_270">270</div>
+        <div class="vessel"></div>
+        <div class="wind-arrow" style="transform:rotate(${wind_orientation}deg)"></div>
+      </div>
     </div>
 
   </section>
