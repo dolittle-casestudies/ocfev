@@ -5,6 +5,7 @@ export class VesselOrientationHub {
     @observable gravityX = 0;
     @observable gravityY = 0;
     @observable gravityZ = 0;
+    @observable trim = 0;
     
     @observable pitch = 0;
     @observable yaw = 0;
@@ -21,8 +22,15 @@ export class VesselOrientationHub {
         this.gravityZ = z;
 
         let rad2Deg = 180 / Math.PI;
-        this.pitch = Math.asin(y) * rad2Deg;
-        this.yaw = Math.atan2(x, z) * rad2Deg;
-        this.roll = 0;       
+
+        let length = 41.4;
+        let pitch = (-117.7*this.gravityY)+2.8669;
+
+        this.trim = (Math.sin(y)*(length/2))*rad2Deg;
+        this.pitch = pitch;
+
+        //this.pitch = Math.asin(y) * rad2Deg;
+        //this.yaw = Math.atan2(x, z) * rad2Deg;
+        //this.roll = 0;       
     }        
 }
