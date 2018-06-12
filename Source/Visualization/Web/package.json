@@ -17,6 +17,7 @@
     "dolittle.javascript.build.aurelia": "https://github.com/dolittle-interaction/JavaScript.Build.Aurelia.git",
     "dolittle.styles": "https://github.com/dolittle/dolittle.styles.git",
     "eslint": "^4.19.1",
+    "leaflet-rotatedmarker": "^0.2.0",
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4"
   },

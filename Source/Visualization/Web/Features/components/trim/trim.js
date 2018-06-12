@@ -4,7 +4,7 @@ import { VesselOrientationHub } from '../../VesselOrientationHub';
 
 @containerless()
 @inject(VesselOrientationHub)
-export class gravity {
+export class trim {
   constructor(vesselOrientationHub) {
     this.orientation = vesselOrientationHub;
   }

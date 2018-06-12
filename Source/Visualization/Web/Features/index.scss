@@ -10,7 +10,7 @@
     grid-template-rows: 20rem 20rem auto;
     grid-template-areas:
       'speed speed speed map map map'
-      'throttle throttle wind wind gravity gravity'
+      'throttle throttle wind wind trim trim'
       'graphs graphs graphs graphs graphs graphs';
     height: 100%;
     padding: $grid-gutter/2;

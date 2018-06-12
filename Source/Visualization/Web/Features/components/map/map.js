@@ -16,6 +16,7 @@ export class map {
       this.map = this._createMap();
       if (this.vessel_marker_location) {
         this._add_vessel_marker(this.vessel_marker_location);
+        //replace map
       }
     }
   }
