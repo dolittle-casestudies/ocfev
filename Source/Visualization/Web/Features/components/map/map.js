@@ -1,21 +1,28 @@
-import { containerless } from 'aurelia-framework';
+import { containerless, observable } from 'aurelia-framework';
 import L from 'leaflet';
+import lr from 'leaflet-rotatedmarker';
 import map_marker from './map_marker_icon';
 
 @containerless()
 export class map {
+  @observable vessel_marker_rotation = 0;
   constructor() {
     this.vessel_marker;
     this.lat_long_center_init = { lat: 59.11927, lng: 10.223576 };
-    this.vessel_location = this._get_vessel_location_from_local_storage();
+    this.vessel_marker_location = this._get_vessel_location_from_local_storage();
   }
   attached() {
     if (!this.map) {
       this.map = this._createMap();
-      if (this.vessel_location) {
-        this._add_vessel_marker(this.vessel_location);
+      if (this.vessel_marker_location) {
+        this._add_vessel_marker(this.vessel_marker_location);
       }
     }
+  }
+
+  vessel_marker_rotationChanged(nv, ov) {
+    console.log(nv, ov);
+    this._update_vessel_marker(this.vessel_marker_location);
   }
 
   _createMap() {
@@ -41,15 +48,26 @@ export class map {
     this.vessel_marker.addTo(this.map);
     this._update_vessel_location_storage(latlng);
   }
+
   _update_vessel_marker(latlng) {
     if (this.vessel_marker) {
       this.map.removeLayer(this.vessel_marker);
     }
     this._add_vessel_marker(latlng);
   }
+
+  _update_vessel_marker_location() {
+    this.vessel_marker_location = this._get_vessel_location_from_local_storage();
+  }
   _create_vessel_marker(latlng, markerIcon) {
     let _self = this;
-    let _marker = L.marker([latlng.lat, latlng.lng], { icon: markerIcon, riseOnHover: true, draggable: true });
+    let _marker = L.marker([latlng.lat, latlng.lng], {
+      icon: markerIcon,
+      riseOnHover: true,
+      draggable: true,
+      autoPan: true,
+      rotationAngle: _self.vessel_marker_rotation
+    });
     _marker.on('dragend', function(e) {
       _self._update_vessel_location_storage(_marker.getLatLng());
     });
@@ -59,6 +77,7 @@ export class map {
   _update_vessel_location_storage(latlng) {
     localStorage.setItem('vessel_latitude', latlng.lat);
     localStorage.setItem('vessel_longitude', latlng.lng);
+    this._update_vessel_marker_location();
   }
   _get_vessel_location_from_local_storage() {
     let vessel_lat = localStorage.getItem('vessel_latitude');
