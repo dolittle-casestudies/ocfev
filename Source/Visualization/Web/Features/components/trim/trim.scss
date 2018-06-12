@@ -2,9 +2,11 @@
   grid-area: trim;
   figure {
     position: relative;
+    overflow: hidden;
     .vessel {
       position: relative;
       z-index: 10;
+      transition: transform 0.2s;
     }
     .waves {
       position: absolute;
