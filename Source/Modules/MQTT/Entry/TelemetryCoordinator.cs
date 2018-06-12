@@ -29,6 +29,11 @@ namespace Entry
 
         private void PublishChanges()
         {
+            var length = 41.4f;
+
+            var y = (117.7f*_currentOrientation.Gravity.Y)+2.8669f;
+            var trim = (float)Math.Sin(y)*(length/2);
+
             var telemetry = new Telemetry
             {
                 angle_wind_relative = 0,
@@ -40,7 +45,7 @@ namespace Entry
                 stw = 0,
 
                 list = 0,
-                trim = _currentOrientation.Gravity.Y,
+                trim = trim,
                 
                 vessel_id = Guid.Parse("5477464f-d3af-4526-abe0-e6eccab97bcb"),
                 time_stamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
@@ -51,7 +56,6 @@ namespace Entry
 
             Console.WriteLine($"Sending : {telemetryAsJson}");
             
-
             var message = new Message(telemetryJsonAsBytes);
             _deviceClient.SendEventAsync(TelemetryOutputName, message);
         }
