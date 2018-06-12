@@ -4,50 +4,69 @@ import map_marker from './map_marker_icon';
 
 @containerless()
 export class map {
-  constructor() {}
-
-  /*
-    let marker = L.marker(new L.LatLng(59.1260972089286, 10.227586687801676), {draggable: true}).addTo(map);
-    marker.on('dragend', function (e) {
-        document.getElementById('latitude').value = marker.getLatLng().lat;
-        document.getElementById('longitude').value = marker.getLatLng().lng;
-    });
-  */
-
+  constructor() {
+    this.vessel_marker;
+    this.lat_long_center_init = { lat: 59.11927, lng: 10.223576 };
+    this.vessel_location = this._get_vessel_location_from_local_storage();
+  }
   attached() {
     if (!this.map) {
       this.map = this._createMap();
-      let _map_marker = new map_marker();
-      let _latLong = { latitude: 59.1260972089286, longitude: 10.227586687801676 };
-      let marker = this._createPortMarker(_latLong, _map_marker);
-      marker.addTo(this.map);
+      if (this.vessel_location) {
+        this._add_vessel_marker(this.vessel_location);
+      }
     }
   }
 
   _createMap() {
+    let _self = this;
     let _map = new L.Map(this.map_container, {
-      center: [59.11927, 10.223576],
+      center: [this.lat_long_center_init.lat, this.lat_long_center_init.lng],
       zoom: 12
+    }).on('click', function(e) {
+      let _latlng = { lat: e.latlng.lat, lng: e.latlng.lng };
+      _self._update_vessel_marker(_latlng);
     });
 
-    // L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-    //   attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>'
-    // }).addTo(_map);
     L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/base/{z}/{x}/{y}.png', {
       attribution:
         'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(_map);
-    _map.on('click', function(e) {
-      console.log('Lat, Lon : ' + e.latlng.lat + ', ' + e.latlng.lng);
-    });
+
     return _map;
   }
-
-  _createPortMarker(latLong, markerIcon) {
-    let _marker = L.marker([latLong.latitude, latLong.longitude], { icon: markerIcon, riseOnHover: true, draggable: true });
+  _add_vessel_marker(latlng) {
+    let _map_marker = new map_marker();
+    this.vessel_marker = this._create_vessel_marker(latlng, _map_marker);
+    this.vessel_marker.addTo(this.map);
+    this._update_vessel_location_storage(latlng);
+  }
+  _update_vessel_marker(latlng) {
+    if (this.vessel_marker) {
+      this.map.removeLayer(this.vessel_marker);
+    }
+    this._add_vessel_marker(latlng);
+  }
+  _create_vessel_marker(latlng, markerIcon) {
+    let _self = this;
+    let _marker = L.marker([latlng.lat, latlng.lng], { icon: markerIcon, riseOnHover: true, draggable: true });
     _marker.on('dragend', function(e) {
-      console.log('Lat, Lon : ' + _marker.getLatLng().lat + ', ' + _marker.getLatLng().lng);
+      _self._update_vessel_location_storage(_marker.getLatLng());
     });
     return _marker;
+  }
+
+  _update_vessel_location_storage(latlng) {
+    localStorage.setItem('vessel_latitude', latlng.lat);
+    localStorage.setItem('vessel_longitude', latlng.lng);
+  }
+  _get_vessel_location_from_local_storage() {
+    let vessel_lat = localStorage.getItem('vessel_latitude');
+    let vessel_lng = localStorage.getItem('vessel_longitude');
+    if (vessel_lat === null || vessel_lng === null) {
+      return null;
+    }
+    let _latlng = { lat: vessel_lat, lng: vessel_lng };
+    return _latlng;
   }
 }
