@@ -31,4 +31,11 @@ export class throttle {
     command.target = value;
     this._command_coordinator.handle(command);
   }
+
+  engines_connectedChanged(nv, ov) {
+    if (nv) {
+      let avg_throttle = (parseInt(this.engine_a_throttle, 10) + parseInt(this.engine_b_throttle, 10)) / 2;
+      this.engine_a_throttle = avg_throttle;
+    }
+  }
 }
