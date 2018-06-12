@@ -60,20 +60,20 @@ setInterval(function() {
 pinMode(19, "output", true);
 pinMode(18, "output", true);
 pinMode(23, "output", true);
-pinMode(22, "output", true);
+pinMode(25, "output", true);
 
-function setMotorASpeed(throttle) {
+function setMotorAThrottle(throttle) {
   digitalWrite(19,1);
   analogWrite(18, throttle, { freq : 25000 });
 }
 
 function setMotorBThrottle(throttle) {
-  digitalWrite(22,1);
+  digitalWrite(25,1);
   analogWrite(23, throttle, { freq : 25000 });
 }
 
-setMotorASpeed(0);
-setMotorBSpeed(0);
+setMotorAThrottle(0);
+setMotorBThrottle(0);
 
 
 var http = require("http");
@@ -82,7 +82,7 @@ http.createServer(function (req, res) {
   var engine = parseInt(result.query["engine"]);
   var throttle = parseFloat(result.query["throttle"]);
   if( engine === 0 || engine == 2 ) setMotorAThrottle(throttle);
-  if( engine == 1 || engine == 2 ) setMotorAThrottle(throttle); 
+  if( engine == 1 || engine == 2 ) setMotorBThrottle(throttle);
 
   res.writeHead(200);
   res.end("Setting throttle to "+throttle+" on engine "+engine);
