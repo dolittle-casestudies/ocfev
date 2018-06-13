@@ -8,6 +8,7 @@ export class VesselOrientationHub {
     @observable trim = 0;
     
     @observable pitch = 0;
+    @observable pitchRaw = 0;
     @observable yaw = 0;
     @observable roll = 0;
 
@@ -28,6 +29,8 @@ export class VesselOrientationHub {
 
         let length = 41.4;
         let pitch = (-117.7*this.gravityY)+2.8669-1.2;
+
+        this.pitchRaw = pitch;
 
         
         this._pitchMovingAverage[this._pitchCount%10] = pitch;
