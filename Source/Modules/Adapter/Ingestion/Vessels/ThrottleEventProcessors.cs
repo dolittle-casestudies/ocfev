@@ -16,9 +16,9 @@ namespace Ingestion.Vessels
         }
         public void Process(ThrottleChanged @event)
         {
-            _logger.Information($"Throttle Changed : {@event.Engine} - {@event.Target}");
-            var request = (HttpWebRequest)WebRequest.Create($"http://10.75.3.38:8080?engine={@event.Engine}&throttle={@event.Target}");
-            request.GetResponse();
+            //_logger.Information($"Throttle Changed : {@event.Engine} - {@event.Target}");
+            //var request = (HttpWebRequest)WebRequest.Create($"http://10.75.3.38:8080?engine={@event.Engine}&throttle={@event.Target}");
+            //request.GetResponse();
         }
     }
 }
