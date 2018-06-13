@@ -1,7 +1,10 @@
-import { containerless, bindable } from 'aurelia-framework';
+import { containerless, inject } from 'aurelia-framework';
+import { WeatherHub } from '../../WeatherHub';
 
 @containerless()
+@inject(WeatherHub)
 export class wind {
-  @bindable wind_knots = '4,3';
-  @bindable wind_orientation = 300;
+    constructor(weatherHub) {
+        this.weatherHub = weatherHub;
+    }
 }
