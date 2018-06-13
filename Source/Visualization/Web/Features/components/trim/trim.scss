@@ -1,18 +1,56 @@
+@keyframes moving_waves {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(1.125rem);
+    }
+    100% {
+        transform: translateX(0.0625rem);
+    }
+}
+@keyframes dipping_ship {
+    0% {
+        transform: translate(0, 0) rotate(0);
+    }
+    20% {
+        transform: translate(0, 0.1rem) rotate(0.2deg);
+    }
+    40% {
+        transform: translate(0, -0.2rem) rotate(-0.2deg);
+    }
+    60% {
+        transform: translate(0, 0.1rem) rotate(0.2deg);
+    }
+    80% {
+        transform: translate(0, -0.1rem) rotate(-0.2deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0);
+    }
+}
 .trim {
-  grid-area: trim;
-  figure {
-    position: relative;
-    overflow: hidden;
-    .vessel {
-      position: relative;
-      z-index: 10;
-      transition: transform 0.2s;
+    grid-area: trim;
+    figure {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        max-width: 31.25rem;
+        margin: 0 auto;
+        .vessel {
+            animation: dipping_ship 5s ease-in-out infinite;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+        .waves {
+            animation: moving_waves 4s infinite;
+            position: absolute;
+            z-index: 20;
+            left: -1.125rem;
+            top: 0;
+            max-width: 31.875rem;
+            width: calc(100% + 36px);
+        }
     }
-    .waves {
-      position: absolute;
-      z-index: 20;
-      left: 0;
-      bottom: 0;
-    }
-  }
 }
