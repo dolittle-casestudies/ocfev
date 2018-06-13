@@ -29,10 +29,8 @@ export class VesselOrientationHub {
 
         let length = 41.4;
         let pitch = (-117.7*this.gravityY)+2.8669-1.2;
-
         this.pitchRaw = pitch;
-
-        
+       
         this._pitchMovingAverage[this._pitchCount%10] = pitch;
         this._pitchCount++;
 

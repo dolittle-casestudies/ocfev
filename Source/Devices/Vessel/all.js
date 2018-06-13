@@ -33,7 +33,7 @@ function send() {
     host: server,
     port: options.port
   }, function() {
-    console.log("Connected");
+//    console.log("Connected");
     client.write(mtpConnect(options.client_id));
 
     var gravity = mpu.getGravity();
@@ -48,7 +48,7 @@ function send() {
 //    client.write(mtpPub("blah","{'angle_wind_relative':"+i+".4}"));
 
     client.on("end", function() {
-      console.log("Client disconnected");
+//      console.log("Client disconnected");
     });
   });
 }
@@ -62,29 +62,93 @@ pinMode(18, "output", true);
 pinMode(23, "output", true);
 pinMode(25, "output", true);
 
-function setMotorAThrottle(throttle) {
-  digitalWrite(19,1);
-  analogWrite(18, throttle, { freq : 25000 });
+
+var motorAMin = 0.4;
+var motorBMin = 0.555;
+var motorRelationship = (motorAMin/motorBMin);
+var motorBMax = 0.7;
+var motorAMax = motorBMax * motorRelationship;
+
+var motorDirectionPins = [19,25];
+var motorThrottlePins = [18, 23];
+
+var motorMinValues = [motorAMin, motorBMin];
+var motorMaxValues = [motorAMax, motorBMax];
+
+var prevMotorThrottles = [0,0];
+
+function sendToMotor(motor, value) {
+  motor = motor%2;
+  digitalWrite(motorDirectionPins[motor],1);
+  analogWrite(motorThrottlePins[motor], value, { freq : 25000 });
 }
 
-function setMotorBThrottle(throttle) {
-  digitalWrite(25,1);
-  analogWrite(23, throttle, { freq : 25000 });
+
+function stopMotor(motor) {
+  sendToMotor(motor,0);
+  prevMotorThrottles[motor] = 0;
 }
 
-setMotorAThrottle(0);
-setMotorBThrottle(0);
 
+
+
+function setMotorThrottle(motor, throttle) {
+  motor = motor%2;
+  if( throttle > 1 ) throttle = 1;
+  if( throttle < 0 ) throttle = 0;
+
+  function calculateAndSetActualThrottle() {
+
+
+    var min = motorMinValues[motor];
+    var max = motorMaxValues[motor];
+
+    var delta = max - min;
+    var actualThrottle = (throttle * delta) + min;
+
+    console.log("Setting engine "+motor+" to "+actualThrottle);
+
+    prevMotorThrottles[motor] = actualThrottle;
+
+    sendToMotor(motor,actualThrottle);
+  }
+
+  if( prevMotorThrottles[motor] === 0 ) {
+    sendToMotor(motor, 0.65);
+    setTimeout(calculateAndSetActualThrottle, 200);
+
+  } else { 
+    calculateAndSetActualThrottle();
+  }
+}
+
+stopMotor(0);
+stopMotor(1);
 
 var http = require("http");
 http.createServer(function (req, res) {
   var result = url.parse(req.url, true);
-  var engine = parseInt(result.query["engine"]);
-  var throttle = parseFloat(result.query["throttle"]);
-  if( engine === 0 || engine == 2 ) setMotorAThrottle(throttle);
-  if( engine == 1 || engine == 2 ) setMotorBThrottle(throttle);
 
-  res.writeHead(200);
-  res.end("Setting throttle to "+throttle+" on engine "+engine);
+  if( result.query.hasOwnProperty("stop") ) {
+    stopMotor(0);
+    stopMotor(1);
+
+    res.writeHead(200);
+    res.end("Stopping engines");
+
+  } else {
+    var engine = parseInt(result.query["engine"]);
+    var throttle = parseFloat(result.query["throttle"]);
+
+    if( engine == 2 ) {
+      setMotorThrottle(0, throttle);
+      setMotorThrottle(1, throttle);
+    } else {
+      setMotorThrottle(engine, throttle);
+    }
+
+    res.writeHead(200);
+    res.end("Setting throttle to "+throttle+" on engine "+engine);
+  }
 }).listen(8080);
 
