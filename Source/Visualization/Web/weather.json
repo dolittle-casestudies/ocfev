@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 10.34,
+        "lat": 59.07
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 289.08,
+        "pressure": 1007,
+        "humidity": 63,
+        "temp_min": 288.15,
+        "temp_max": 290.15
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 4.6,
+        "deg": 20
+    },
+    "clouds": {
+        "all": 90
+    },
+    "dt": 1528883400,
+    "sys": {
+        "type": 1,
+        "id": 5340,
+        "message": 0.0032,
+        "country": "NO",
+        "sunrise": 1528855527,
+        "sunset": 1528921956
+    },
+    "id": 3134521,
+    "name": "Tjome",
+    "cod": 200
+}

@@ -6,8 +6,8 @@
     </h1>
     <div class="content">
       <div class="text">
-        <h2>${wind_knots}</h2>
-        <em>knots</em>
+        <h2>${weatherHub.wind_speed}</h2>
+        <em>m/s</em>
       </div>
       <div class="circle">
         <div class="angle_0">0</div>
@@ -15,7 +15,7 @@
         <div class="angle_180">180</div>
         <div class="angle_270">270</div>
         <div class="vessel"></div>
-        <div class="wind-arrow" style="transform:rotate(${wind_orientation}deg)"></div>
+        <div class="wind-arrow" style="transform:rotate(${weatherHub.wind_direction}deg)"></div>
       </div>
     </div>
 

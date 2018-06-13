@@ -113,6 +113,7 @@ namespace Web
                 ReceiveBufferSize = 4*1024
             });
             app.UseHub<VesselOrientationHub>("/vessel/orientation");
+            app.UseHub<WeatherHub>("/weather");
 
             // Todo: this probably is a bit too lose.. 
             app.UseCors(builder => builder
