@@ -11,19 +11,19 @@
 }
 @keyframes dipping_ship {
     0% {
-        transform: translate(0, 0);
+        transform: translate(0, 0) rotate(0);
     }
     20% {
-        transform: translate(0, 0.1rem);
+        transform: translate(0, 0.1rem) rotate(0.2deg);
     }
     40% {
-        transform: translate(0, -0.2rem);
+        transform: translate(0, -0.2rem) rotate(-0.1deg);
     }
     60% {
-        transform: translate(0, 0.1rem);
+        transform: translate(0, 0.1rem) rotate(0.1deg);
     }
     80% {
-        transform: translate(0, -0.1rem);
+        transform: translate(0, -0.1rem) rotate(-0.2deg);
     }
     100% {
         transform: translate(0, 0) rotate(0);
@@ -37,10 +37,14 @@
         position: relative;
         max-width: 31.25rem;
         margin: 0 auto;
-        .vessel {
+
+        .vessel-wrapper {
+            animation: dipping_ship 4s infinite;
             position: relative;
             z-index: 10;
-            transition: transform 0.2s;
+            .vessel {
+                transition: transform 0.2s;
+            }
         }
         .waves {
             animation: moving_waves 4s infinite;

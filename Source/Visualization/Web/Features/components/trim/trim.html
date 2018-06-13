@@ -2,8 +2,11 @@
   <require from="./trim.scss"></require>
   <section class="trim">
     <h1>Trim</h1>
+    <!-- <input type="number" value.bind="orientation.pitchRaw"> -->
     <figure>
-      <img src="./vessel.svg" alt="vessel" class="vessel" css="transform:rotate(${orientation.pitchRaw}deg)">
+      <div class="vessel-wrapper">
+        <img src="./vessel.svg" alt="vessel" class="vessel" css="transform:rotate(${orientation.pitchRaw}deg)">
+      </div>
       <img src="./waves.svg" alt="vessel" class="waves">
     </figure>
   </section>
