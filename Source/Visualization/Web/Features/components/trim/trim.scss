@@ -11,19 +11,19 @@
 }
 @keyframes dipping_ship {
     0% {
-        transform: translate(0, 0) rotate(0);
+        transform: translate(0, 0);
     }
     20% {
-        transform: translate(0, 0.1rem) rotate(0.2deg);
+        transform: translate(0, 0.1rem);
     }
     40% {
-        transform: translate(0, -0.2rem) rotate(-0.2deg);
+        transform: translate(0, -0.2rem);
     }
     60% {
-        transform: translate(0, 0.1rem) rotate(0.2deg);
+        transform: translate(0, 0.1rem);
     }
     80% {
-        transform: translate(0, -0.1rem) rotate(-0.2deg);
+        transform: translate(0, -0.1rem);
     }
     100% {
         transform: translate(0, 0) rotate(0);
@@ -38,7 +38,6 @@
         max-width: 31.25rem;
         margin: 0 auto;
         .vessel {
-            animation: dipping_ship 5s ease-in-out infinite;
             position: relative;
             z-index: 10;
             transition: transform 0.2s;
