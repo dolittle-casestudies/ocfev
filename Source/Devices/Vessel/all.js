@@ -78,7 +78,7 @@ var motorMaxValues = [motorAMax, motorBMax];
 var prevMotorThrottles = [0,0];
 
 function sendToMotor(motor, value) {
-    motor = motor%2;
+  motor = motor%2;
   digitalWrite(motorDirectionPins[motor],1);
   analogWrite(motorThrottlePins[motor], value, { freq : 25000 });
 }
@@ -86,6 +86,7 @@ function sendToMotor(motor, value) {
 
 function stopMotor(motor) {
   sendToMotor(motor,0);
+  prevMotorThrottles[motor] = 0;
 }
 
 
