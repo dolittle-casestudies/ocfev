@@ -1,5 +1,17 @@
+@import '../../../styles/Settings/all';
 @import '~leaflet/dist/leaflet.css';
 .map {
-  height: 100%;
-  grid-area: map;
+    height: 100%;
+    grid-area: map;
+    .vessel_control {
+        a {
+            color: $color-brand-dark-blue;
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+            height: 2rem;
+            &.rotate_ccw {
+                transform: scaleX(-1);
+            }
+        }
+    }
 }
