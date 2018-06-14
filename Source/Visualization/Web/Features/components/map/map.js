@@ -13,7 +13,7 @@ export class map {
     constructor(httpClient) {
         this.vessel_marker;
         this.lat_long_center_init = { lat: 59.11927, lng: 10.223576 };
-        this.vessel_marker_location = this._get_vessel_location_from_local_storage();
+        this.vessel_marker_location;
         this._httpClient = httpClient;
     }
 
@@ -97,7 +97,7 @@ export class map {
                 if (!self.vessel_marker_location) {
                     let _latlng = { lat: 59.90700614346053, lng: 10.75143098831177 };
                     self._add_vessel_marker(_latlng);
-                    self.vessel_marker_rotation = -60;
+                    self.vessel_marker_rotation = -65;
                 }
                 self.map.setView(self.vessel_marker_location, 15);
             },
