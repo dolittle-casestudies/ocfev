@@ -1,3 +1,4 @@
+@import '../../../styles/Settings/all';
 @keyframes moving_waves {
     0% {
         transform: translateX(0);
@@ -54,6 +55,17 @@
             top: 0;
             max-width: 31.875rem;
             width: calc(100% + 36px);
+        }
+        .alert_message {
+            color: $color-brand-orange;
+            font-size: 1rem;
+            position: absolute;
+            left: 50%;
+            letter-spacing: 0.0625rem;
+            text-transform: uppercase;
+            top: 1rem;
+            transform: translateX(-50%);
+            z-index: 30;
         }
     }
 }
