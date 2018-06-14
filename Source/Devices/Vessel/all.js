@@ -19,8 +19,9 @@ function mtpPub(topic, data) {
   return  mtPacket(0b00110001, mtStr(topic), data);
 }
 
+var server = "192.168.10.201";
+    //"137.117.132.51";
 
-var server = "137.117.132.51";
 var options = {
     client_id : getSerial(),
     port: 1883
@@ -43,6 +44,7 @@ function send() {
         Y: gravity[1],
         Z: gravity[2]      } 
     };
+//    console.log("Sending : "+message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);
     client.write(mtpPub("VesselOrientation",JSON.stringify(message)));
 
 //    client.write(mtpPub("blah","{'angle_wind_relative':"+i+".4}"));
@@ -63,13 +65,13 @@ pinMode(23, "output", true);
 pinMode(25, "output", true);
 
 
-var motorAMin = 0.4;
+var motorAMin = 0.555;
 var motorBMin = 0.555;
 var motorRelationship = (motorAMin/motorBMin);
 var motorBMax = 0.7;
 var motorAMax = motorBMax * motorRelationship;
 
-var motorDirectionPins = [19,25];
+var motorDirectionPins = [19, 25];
 var motorThrottlePins = [18, 23];
 
 var motorMinValues = [motorAMin, motorBMin];
@@ -124,31 +126,33 @@ function setMotorThrottle(motor, throttle) {
 
 stopMotor(0);
 stopMotor(1);
+function onInit() {
+  var http = require("http");
+  http.createServer(function (req, res) {
+    var result = url.parse(req.url, true);
 
-var http = require("http");
-http.createServer(function (req, res) {
-  var result = url.parse(req.url, true);
+    if( result.query.hasOwnProperty("stop") ) {
+      stopMotor(0);
+      stopMotor(1);
 
-  if( result.query.hasOwnProperty("stop") ) {
-    stopMotor(0);
-    stopMotor(1);
+      res.writeHead(200);
+      res.end("Stopping engines");
 
-    res.writeHead(200);
-    res.end("Stopping engines");
-
-  } else {
-    var engine = parseInt(result.query["engine"]);
-    var throttle = parseFloat(result.query["throttle"]);
-
-    if( engine == 2 ) {
-      setMotorThrottle(0, throttle);
-      setMotorThrottle(1, throttle);
     } else {
-      setMotorThrottle(engine, throttle);
-    }
+      var engine = parseInt(result.query["engine"]);
+      var throttle = parseFloat(result.query["throttle"]);
 
-    res.writeHead(200);
-    res.end("Setting throttle to "+throttle+" on engine "+engine);
-  }
-}).listen(8080);
+      if( engine == 2 ) {
+        setMotorThrottle(0, throttle);
+        setMotorThrottle(1, throttle);
+      } else {
+        setMotorThrottle(engine, throttle);
+      }
+
+      res.writeHead(200);
+      res.end("Setting throttle to "+throttle+" on engine "+engine);
+    }
+  }).listen(8080);
+}
+
 
