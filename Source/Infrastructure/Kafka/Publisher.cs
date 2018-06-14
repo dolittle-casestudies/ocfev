@@ -12,6 +12,7 @@ namespace Infrastructure.Kafka
     public class Publisher : IPublisher, IDisposable
     {
         readonly Producer<Null, string> _producer;
+        readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Publisher"/>
@@ -20,6 +21,7 @@ namespace Infrastructure.Kafka
         /// <param name="logger"><see cref="ILogger"/> used for logging</param>
         public Publisher(IConfiguration configuration, ILogger logger)
         {
+            _logger = logger;
             _producer = new Producer<Null, string>(configuration.GetForPublisher(), null, new StringSerializer(Encoding.UTF8));
             _producer.OnError += (sender, error) =>
             {
@@ -41,6 +43,7 @@ namespace Infrastructure.Kafka
         /// <inheritdoc/>
         public void Publish(Topic topic, string json)
         {
+            _logger.Information($"Publishing to topic '{topic}' - {json}");
             _producer.ProduceAsync(topic, null, json);
         }
     }

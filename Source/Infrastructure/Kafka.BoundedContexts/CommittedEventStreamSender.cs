@@ -38,8 +38,10 @@ namespace Infrastructure.Kafka.BoundedContexts
 
         public void Send(CommittedEventStream committedEventStream)
         {
-            _logger.Information("Sending committed event stream");
+            _logger.Information($"Sending committed event stream - topics count = {_senderConfiguration.Topics.Count()}");
             _bridge.Send(committedEventStream);
+
+           
             
             if( _senderConfiguration.Topics.Count() == 0 ) return;
 
