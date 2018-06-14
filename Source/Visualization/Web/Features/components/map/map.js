@@ -12,7 +12,7 @@ export class map {
 
     constructor(httpClient) {
         this.vessel_marker;
-        this.lat_long_center_init = { lat: 59.11927, lng: 10.223576 };
+        this.lat_long_center_init = { lat: 59.90700614346053, lng: 10.75143098831177 };
         this.vessel_marker_location;
         this._httpClient = httpClient;
     }
@@ -25,7 +25,6 @@ export class map {
                 this.map.setView(this.vessel_marker_location, 10);
             }
         }
-        this.vessel_marker_rotation = parseInt(this._get_vessel_rotation_from_local_storage(), 10);
     }
 
     vessel_marker_rotationChanged(nv, ov) {
@@ -37,7 +36,7 @@ export class map {
         let self = this;
         let _map = new L.Map(this.map_container, {
             center: [this.lat_long_center_init.lat, this.lat_long_center_init.lng],
-            zoom: 10
+            zoom: 5
         }).on('click', function(e) {
             let _latlng = { lat: e.latlng.lat, lng: e.latlng.lng };
             self._update_vessel_marker(_latlng);
@@ -67,7 +66,6 @@ export class map {
                 center_button.setAttribute('role', 'button');
                 let icon = L.DomUtil.create('img', 'vessel_icon', center_button);
                 icon.src = vessel_icon;
-                // center_button.innerHTML = '&#9737;';
 
                 let rotate_cw = L.DomUtil.create('a', 'rotate_cw', wrapper);
                 rotate_cw.title = 'rotate the vessel clockwise';
