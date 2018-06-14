@@ -99,7 +99,7 @@ export class map {
                     self._add_vessel_marker(_latlng);
                     self.vessel_marker_rotation = -65;
                 }
-                self.map.setView(self.vessel_marker_location, 15);
+                self.map.setView(self.vessel_marker_location, 16);
             },
             _rotate_vessel_cw: function(ev) {
                 self.vessel_marker_rotation += 5;
