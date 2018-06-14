@@ -2,7 +2,10 @@
   <require from="./trim.scss"></require>
   <section class="trim">
     <h1>Trim</h1>
-    <!-- <input type="number" value.bind="orientation.pitchRaw"> -->
+    <!--<input type="number" value.bind="orientation.trim">-->
+    <div if.bind="orientation.throttle == 0">
+      <div if.bind="orientation.has_alert">Trim is ineffecient</div>
+    </div>
     <figure>
       <div class="vessel-wrapper">
         <img src="./vessel.svg" alt="vessel" class="vessel" css="transform:rotate(${orientation.trim}deg)">

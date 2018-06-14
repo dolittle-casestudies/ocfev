@@ -1,6 +1,8 @@
 import { HubConnection } from './HubConnection';
-import { observable } from 'aurelia-framework';
+import { observable, inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
+@inject(EventAggregator)
 export class VesselOrientationHub {
     @observable gravityX = 0;
     @observable gravityY = 0;
@@ -12,11 +14,18 @@ export class VesselOrientationHub {
     @observable yaw = 0;
     @observable roll = 0;
 
-    constructor() {
+    @observable throttle = 0;
+    @observable has_alert = false;
+
+    constructor(event_aggregator) {
+        event_aggregator.subscribe("changeThrottle", response => {
+            this.throttle = response.target;
+        }); 
         this._connection = HubConnection.createFor('vessel/orientation');
         this._connection.on('gravityChanged', this.gravityChanged, this);
         this._pitchCount = 0;
         this._pitchMovingAverage = [];
+        for( var i=0; i<10; i++ ) this._pitchMovingAverage[i] = 0;
     }
 
     gravityChanged(x, y, z) {
@@ -29,16 +38,29 @@ export class VesselOrientationHub {
 
         let length = 41.4;
         let pitch = -((-117.7*this.gravityY)+2.8669-1.2);
+        pitch = pitch -10;
         this.pitchRaw = pitch;
        
-        this._pitchMovingAverage[this._pitchCount%10] = pitch;
+        this._pitchMovingAverage[this._pitchCount%this._pitchMovingAverage.length] = pitch;
         this._pitchCount++;
 
         let sum = 0;
+        //let sorted = this._pitchMovingAverage.sort((a,b) => a > b);
+        //let sortedSlice = sorted.slice(15,25);
+
+        //sortedSlice.forEach(value => sum += value);
+        //this.pitch = sum / sortedSlice.length;
+
         this._pitchMovingAverage.forEach(value => sum += value);
         this.pitch = sum / this._pitchMovingAverage.length;
 
         this.trim = (Math.sin(this.pitch*deg2Rad))*(length/2);
+
+        if( this.trim < -1 || this.trim > 0.5 ) {
+            this.has_alert = true;
+        } else {
+            this.has_alert = false;
+        }
 
         //this.pitch = Math.asin(y) * rad2Deg;
         //this.yaw = Math.atan2(x, z) * rad2Deg;
