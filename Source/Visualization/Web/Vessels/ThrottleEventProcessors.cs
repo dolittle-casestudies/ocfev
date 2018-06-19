@@ -18,7 +18,7 @@ namespace Web.Vessels
         {
             _logger.Information($"Throttle Changed : {@event.Engine} - {@event.Target}");
             var actualThrottle = @event.Target / 100f;
-            var request = (HttpWebRequest)WebRequest.Create($"http://192.168.10.204:8080?engine={@event.Engine}&throttle={actualThrottle}");
+            var request = (HttpWebRequest)WebRequest.Create($"http://192.168.10.202:8080?engine={@event.Engine}&throttle={actualThrottle}");
             request.GetResponse();
         }
     }
