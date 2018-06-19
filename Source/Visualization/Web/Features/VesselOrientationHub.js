@@ -26,6 +26,8 @@ export class VesselOrientationHub {
         this._pitchCount = 0;
         this._pitchMovingAverage = [];
         for( var i=0; i<10; i++ ) this._pitchMovingAverage[i] = 0;
+        
+        for( var i=0; i<10; i++ ) this.gravityChanged(0, 0.03, 0);
     }
 
     gravityChanged(x, y, z) {
@@ -36,20 +38,16 @@ export class VesselOrientationHub {
         let rad2Deg = 180 / Math.PI;
         let deg2Rad = Math.PI / 180;
 
-        let length = 41.4;
-        let pitch = -((-117.7*this.gravityY)+2.8669-1.2);
-        pitch = pitch -10;
+        let length = 42;
+        
+        let pitch = ((-117.7*this.gravityY)+2.8669-1.2);
+        //pitch = pitch -10;
         this.pitchRaw = pitch;
        
         this._pitchMovingAverage[this._pitchCount%this._pitchMovingAverage.length] = pitch;
         this._pitchCount++;
 
         let sum = 0;
-        //let sorted = this._pitchMovingAverage.sort((a,b) => a > b);
-        //let sortedSlice = sorted.slice(15,25);
-
-        //sortedSlice.forEach(value => sum += value);
-        //this.pitch = sum / sortedSlice.length;
 
         this._pitchMovingAverage.forEach(value => sum += value);
         this.pitch = sum / this._pitchMovingAverage.length;
@@ -61,9 +59,5 @@ export class VesselOrientationHub {
         } else {
             this.has_alert = false;
         }
-
-        //this.pitch = Math.asin(y) * rad2Deg;
-        //this.yaw = Math.atan2(x, z) * rad2Deg;
-        //this.roll = 0;       
     }        
 }
