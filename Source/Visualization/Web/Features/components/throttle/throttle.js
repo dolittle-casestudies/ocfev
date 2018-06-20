@@ -2,16 +2,18 @@ import { containerless, observable, inject } from 'aurelia-framework';
 import { CommandCoordinator } from '@dolittle/commands';
 import { ChangeThrottle } from './ChangeThrottle';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { VesselSettingsHub } from '../../VesselSettingsHub';
 
 @containerless()
-@inject(CommandCoordinator, EventAggregator)
+@inject(CommandCoordinator, EventAggregator, VesselSettingsHub)
 export class throttle {
   @observable engine_a_throttle = 0;
   @observable engine_b_throttle = 0;
   @observable engines_connected = true;
-  constructor(command_coordinator, event_aggregator) {
+  constructor(command_coordinator, event_aggregator, vessel_settings_hub) {
     this._command_coordinator = command_coordinator;
     this._event_aggregator = event_aggregator;
+    this.vessel_settings_hub = vessel_settings_hub;
   }
 
   engine_a_throttleChanged(value) {

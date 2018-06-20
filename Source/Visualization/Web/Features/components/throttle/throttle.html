@@ -3,6 +3,7 @@
   <section class="throttle">
     <h1>Throttle</h1>
     <div class="engines ${engines_connected?'connected':''}">
+      
       <div class="engine">
         <strong>${engine_a_throttle}%</strong>
         <input type="range" class="vertical-slider left" step="10" min="0" max="100" value.bind="engine_a_throttle">
@@ -17,6 +18,8 @@
         <label>Engine B </label>
       </div>
     </div>
+
+    <small>${vessel_settings_hub.ip}</small>
 
   </section>
 </template>
