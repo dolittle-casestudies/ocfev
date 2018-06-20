@@ -165,7 +165,7 @@ namespace Infrastructure.Kafka.BoundedContexts
                     _logger.Warning("Missing topic - won't get events from other bounded contexts");
                     return;
                 }
-                _consumer.SubscribeTo($"BoundedContextListenerFor_{_configuration.Topic}",_configuration.Topic, Received);
+                _consumer.SubscribeTo($"BoundedContextListenerFor_{_configuration.Topic}{_configuration.ConsumerPostFix}",_configuration.Topic, Received);
             } catch( Exception ex ) 
             {
                 _logger.Error(ex, "Failed subscribing to topics");
