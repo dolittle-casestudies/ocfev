@@ -7,6 +7,8 @@ namespace Infrastructure.Kafka.BoundedContexts
     public class BoundedContextModule : Autofac.Module
     {
         const string KAFKA_BOUNDED_CONTEXT_TOPIC = "KAFKA_BOUNDED_CONTEXT_TOPIC";
+        const string KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX = "KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX";
+        
         const string KAFKA_BOUNDED_CONTEXT_SEND_TOPICS = "KAFKA_BOUNDED_CONTEXT_SEND_TOPICS";
 
         protected override void Load(ContainerBuilder builder)
@@ -23,7 +25,11 @@ namespace Infrastructure.Kafka.BoundedContexts
 
             Topic topic = "";
             if( environmentVariables.Contains(KAFKA_BOUNDED_CONTEXT_TOPIC)) topic = (string)environmentVariables[KAFKA_BOUNDED_CONTEXT_TOPIC];
-            var boundedContextListenerConfiguration = new BoundedContextListenerConfiguration(topic);
+
+            var consumerPostFix = string.Empty;
+            if( environmentVariables.Contains(KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX)) consumerPostFix = "_"+(string)environmentVariables[KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX];
+
+            var boundedContextListenerConfiguration = new BoundedContextListenerConfiguration(topic, consumerPostFix);
             builder.RegisterInstance(boundedContextListenerConfiguration).As<BoundedContextListenerConfiguration>();
         }
     }
