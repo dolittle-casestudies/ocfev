@@ -1,8 +1,14 @@
 // dolittle-iot.westeurope.cloudapp.azure.com
+const wifi = require("Wifi");
+const mpu = require("MPU6050").connect(I2C1);
+const net = require("net");
+const http = require("http");
 
 function onInit() {
-  I2C1.setup({scl:22,sda:21, bitrate: 100000});
-  const mpu = require("MPU6050").connect(I2C1);
+  var ip = wifi.getIP();
+  
+  I2C1.setup({scl:22,sda:21}); //, bitrate: 100000});
+
   function mtStr(s) {
     return String.fromCharCode(s.length>>8,s.length&255)+s;
   } 
@@ -20,7 +26,7 @@ function onInit() {
     return  mtPacket(0b00110001, mtStr(topic), data);
   }
 
-  var server = "192.168.10.202";
+  var server = "192.168.1.100";
       //"137.117.132.51";
 
   var options = {
@@ -28,20 +34,14 @@ function onInit() {
       port: 1883
   };
 
-  var net = require("net");
-
-  function send(message) {
+  function send(topic, message) {
     var client = net.connect({
       host: server,
       port: options.port
     }, function() {
-  //    console.log("Connected");
       client.write(mtpConnect(options.client_id));
-
-  //    console.log("Sending : "+message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);
-      client.write(mtpPub("VesselOrientation",JSON.stringify(message)));
-
-  //    client.write(mtpPub("blah","{'angle_wind_relative':"+i+".4}"));
+      console.log("Send to '"+topic+"' message: '"+message+"'");
+      client.write(mtpPub(topic,message));
 
       client.on("end", function() {
   //      console.log("Client disconnected");
@@ -58,9 +58,9 @@ function onInit() {
         Z: gravity[2]
       } 
     };
-//    console.log(message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);
-
-    send(message);
+//    console.log(message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);    
+//    console.log(message.Gravity.Y);
+    send("VesselOrientation", JSON.stringify(message));
   }, 1000);
 
   pinMode(19, "output", true);
@@ -99,8 +99,8 @@ function onInit() {
     motor = motor%2;
     if( throttle > 1 ) throttle = 1;
     if( throttle < 0 ) throttle = 0;
-    
-    if( throttle == 0 ) {
+
+    if( throttle === 0 ) {
       stopMotor(motor);
       return;
     }
@@ -133,7 +133,8 @@ function onInit() {
   stopMotor(0);
   stopMotor(1);
 
-  var http = require("http");
+  send("vesselip",ip.ip);
+
   http.createServer(function (req, res) {
     var result = url.parse(req.url, true);
 
@@ -160,5 +161,3 @@ function onInit() {
     }
   }).listen(8080);
 }
-
-
