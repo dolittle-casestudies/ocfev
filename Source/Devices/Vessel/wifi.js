@@ -7,6 +7,17 @@ wifi.scan(function(ap_list) {
 });
 
 
-wifi.connect("OCFEV", {password:""}, function(ap) {
+wifi.connect("Covfefe", {password:""}, function(ap) {
   console.log("Connected : "+ap);
 });  
+
+/*
+
+Not on ESP32
+
+wifi.setIP({
+  ip:"192.168.10.210",
+  netmask:"255.255.255.0",
+  gw:"192.168.10.1"
+});
+*/
