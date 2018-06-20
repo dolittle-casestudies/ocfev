@@ -22,3 +22,5 @@
               value: "adapter"
             - name: KAFKA_BOUNDED_CONTEXT_TOPIC
               value: "visualization"
+            - name: KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX
+              value: "cloud"
