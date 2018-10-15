@@ -1,6 +1,9 @@
 
+
+
 // dolittle-iot.westeurope.cloudapp.azure.com
 const wifi = require("Wifi");
+const mpu = require("MPU6050").connect(I2C1);
 const net = require("net");
 const http = require("http");
 
@@ -8,7 +11,6 @@ const http = require("http");
 
 function onInit() {
   I2C1.setup({scl:22,sda:21}); //, bitrate: 100000});
-  const mpu = require("MPU6050").connect(I2C1);
 
   function mtStr(s) {
     return String.fromCharCode(s.length>>8,s.length&255)+s;
@@ -27,7 +29,7 @@ function onInit() {
     return  mtPacket(0b00110001, mtStr(topic), data);
   }
 
-  var server = "10.0.1.33";
+  var server = "192.168.1.100";
       //"137.117.132.51";
 
   var options = {
@@ -56,13 +58,13 @@ function onInit() {
     var message = {
       Gravity: {
         X: gravity[0],
-        Y: -gravity[1],
+        Y: gravity[1],
         Z: gravity[2]
       }
     };
-//    console.log(message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);    
+    console.log(message.Gravity.X+", "+message.Gravity.Y+", "+message.Gravity.Z);    
 //    console.log(message.Gravity.Y);
-    send("VesselOrientation", JSON.stringify(message));
+//    send("VesselOrientation", JSON.stringify(message));
   }, 1000);
 
   pinMode(19, "output", true);

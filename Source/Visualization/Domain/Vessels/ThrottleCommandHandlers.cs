@@ -19,7 +19,7 @@ namespace Domain.Vessels
         public void Handle(ChangeThrottle command)
         {
             var throttling = _repository.Get(vesselId);
-            throttling.ChangeTo(command.Engine, command.Target);
+            throttling.ChangeTo(command.Engines, command.Target);
         }
     }
 }

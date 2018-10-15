@@ -4,8 +4,7 @@ namespace Domain.Vessels
 {
     public class ChangeThrottle : ICommand
     {
-        public int Engine {  get; set; }
-        public float Target {  get; set; }
-
+        public int[] Engines {  get; set; }
+        public double Target {  get; set; }
     }
 }

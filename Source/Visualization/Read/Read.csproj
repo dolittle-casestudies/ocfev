@@ -5,13 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dolittle.SDK.ReadModels" Version="2.0.0-alpha2*" />
-    <PackageReference Include="Dolittle.SDK.Events.Processing" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.SDK" Version="2.0.0-alpha2*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
-    <ProjectReference Include="..\ExternalEvents\ExternalEvents.csproj" />
+    <ProjectReference Include="..\Events.Devices\Events.Devices.csproj" />
   </ItemGroup>
 
 </Project>

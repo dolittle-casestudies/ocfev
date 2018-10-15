@@ -12,12 +12,25 @@ namespace Web
     /// </summary>
     public class VesselOrientationHub : Hub
     {
-        public VesselOrientationHub(ILogger logger, ISerializer serializer) : base(logger, serializer) {}
-
+        public VesselOrientationHub(ILogger logger, ISerializer serializer) : base(logger, serializer) { }
 
         public void GravityChanged(float x, float y, float z)
         {
-            Invoke(() => GravityChanged(x,y,z));
-       }
+            Invoke(() => GravityChanged(x, y, z));
+        }
+
+
+        public void ThrottleChanged(int engine, double target)
+        {
+            Invoke(() => ThrottleChanged(engine, target));
+        }
+
+
+        public void ChangeGravity(double x, double y, double z)
+        {
+            _logger.Information($"Change gravity ({x},{y},{z})");
+
+            GravityChanged((float)x,(float)y,(float)z);
+        }
     }
 }

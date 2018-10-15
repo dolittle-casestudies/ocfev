@@ -16,4 +16,4 @@ COPY --from=build-env /app/Modules/MQTT/Entry/out ./
 
 EXPOSE 1883/tcp
 
-ENTRYPOINT ["/bin/sh", "-c", "echo 104.45.19.232   kafka-service >> /etc/hosts && dotnet Entry.dll"]
+ENTRYPOINT ["/bin/sh", "-c", "echo 137.117.175.54   kafka-service >> /etc/hosts && dotnet Entry.dll"]

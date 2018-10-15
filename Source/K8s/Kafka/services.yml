@@ -6,6 +6,7 @@ metadata:
   namespace: ocfev
   labels:
     app: kafka
+    tst: some-label
 spec:
   type: LoadBalancer
   ports:

@@ -12,13 +12,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Autofac;
-using Dolittle.Applications.Serialization.Json;
 using Dolittle.AspNetCore.Bootstrap;
 using Dolittle.Collections;
 using Dolittle.DependencyInversion.Autofac;
 using Dolittle.Runtime.Events.Coordination;
 using Dolittle.Serialization.Json;
-using Infrastructure;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +27,6 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using Infrastructure.Kafka.BoundedContexts;
 using Microsoft.Extensions.Logging;
 
 namespace Web
@@ -124,8 +121,6 @@ namespace Web
 
             app.UseMvc();
             app.UseDolittle();
-            
-            BoundedContextListener.Start(app.ApplicationServices);
 
             app.RunAsSinglePageApplication();
         }

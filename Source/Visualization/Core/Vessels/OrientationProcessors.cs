@@ -1,6 +1,6 @@
 using System;
 using Dolittle.Events.Processing;
-using ExternalEvents;
+using Events.Devices.Vessels;
 
 namespace Web.Vessel
 {
@@ -23,6 +23,7 @@ namespace Web.Vessel
         /// <summary>
         /// 
         /// </summary>
+        [EventProcessor("c13f3e8d-865c-4f36-b9b9-63ac33d9a033")]
         public void Process(GravityChanged @event)
         {
             Console.WriteLine($"Gravity : {@event.X}, {@event.Y}, {@event.Z}");

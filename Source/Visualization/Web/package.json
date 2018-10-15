@@ -22,9 +22,9 @@
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "@dolittle/commands": "^1.0.5",
-    "@dolittle/core": "^1.0.2",
-    "@dolittle/queries": "^1.0.6",
+    "@dolittle/commands": "^1.0.9",
+    "@dolittle/core": "^1.0.4",
+    "@dolittle/queries": "^1.0.11",
     "aurelia-event-aggregator": "^1.0.1",
     "aurelia-http-client": "^1.2.1",
     "aurelia-open-id-connect": "^1.0.3",

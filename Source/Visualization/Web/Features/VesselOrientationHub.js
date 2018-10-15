@@ -32,7 +32,7 @@ export class VesselOrientationHub {
 
     gravityChanged(x, y, z) {
         this.gravityX = x;
-        this.gravityY = y;
+        this.gravityY = -y;
         this.gravityZ = z;
 
         let rad2Deg = 180 / Math.PI;

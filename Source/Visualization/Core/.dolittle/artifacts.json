@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "6ecc4c5f-50f4-4ceb-bec1-84bcdc0e5727": {
+      "commands": [
+        {
+          "artifact": "c5b907e0-c846-4447-983d-8865b6bfcde9",
+          "generation": 1,
+          "type": "Domain.Vessels.ChangeThrottle, Domain"
+        }
+      ],
+      "events": [
+        {
+          "artifact": "74dcacf0-9729-4fa1-8d49-c5f80d66c62f",
+          "generation": 1,
+          "type": "Events.Vessels.ThrottleChanged, Events"
+        },
+        {
+          "artifact": "a16ed101-52b5-43c3-8869-31172813d530",
+          "generation": 1,
+          "type": "Events.Devices.Vessels.GravityChanged, Events.Devices"
+        }
+      ],
+      "eventSources": [
+        {
+          "artifact": "c5689afd-bb73-4635-91f8-2ea658bbc532",
+          "generation": 1,
+          "type": "Domain.Vessels.Throttling, Domain"
+        }
+      ],
+      "readModels": [],
+      "queries": []
+    }
+  }
+}

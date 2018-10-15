@@ -32,4 +32,4 @@ COPY --from=node-build /src/Source/Visualization/Web/wwwroot ./wwwroot
 EXPOSE 80
 
 #ENTRYPOINT ["dotnet", "Web.dll"]
-ENTRYPOINT ["/bin/sh", "-c", "echo 104.45.19.232   kafka-service >> /etc/hosts && dotnet Web.dll"]
+ENTRYPOINT ["/bin/sh", "-c", "echo 137.117.175.54   kafka-service >> /etc/hosts && dotnet Web.dll"]

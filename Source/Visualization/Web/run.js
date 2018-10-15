@@ -31,9 +31,9 @@ let karmaOptions = {
 let server = new karma.Server(karmaOptions).start()
 */
 
-glob("*.csproj", (err, matches) => {
+glob("../Core/*.csproj", (err, matches) => {
     if (matches.length) {
-        let dotnet = spawn("dotnet", ["watch","run"]);
+        let dotnet = spawn('dotnet', ['watch','run'], {cwd: '../Core'});
         dotnet.stdout.on('data', (data) => {
             console.log(data.toString());
         });
@@ -42,6 +42,6 @@ glob("*.csproj", (err, matches) => {
             console.log(data.toString());
         });
     } else {
-        console.log("<--- No .csproj file - not running 'dotnet' --->")
+        console.log('<--- No .csproj file - not running "dotnet" --->')
     }
 });

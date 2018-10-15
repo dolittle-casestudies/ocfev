@@ -7,7 +7,19 @@ wifi.scan(function(ap_list) {
 });
 
 
-wifi.connect("Covfefe", {password:""}, function(ap) {
+var wifi = require("Wifi");
+wifi.connect("Dolittle", {password:"Abcd1234"}, function(ap) {
+  console.log("Connected : "+ap);
+});  
+
+
+var wifi = require("Wifi");
+wifi.connect("Einars iPhone", {password:"2ngpavr996o4h"}, function(ap) {
+  console.log("Connected : "+ap);
+});  
+
+var wifi = require("Wifi");
+wifi.connect("The Ingebrigtsens", {password:"Agei1208"}, function(ap) {
   console.log("Connected : "+ap);
 });  
 
