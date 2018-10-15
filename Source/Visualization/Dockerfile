@@ -28,4 +28,4 @@ COPY --from=dotnet-build /src/Source/Visualization/Core/out ./
 COPY --from=node-build /src/Source/Visualization/Web/wwwroot ./wwwroot
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "Web.dll"]
+ENTRYPOINT ["dotnet", "Core.dll"]
