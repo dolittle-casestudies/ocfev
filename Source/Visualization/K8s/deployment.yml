@@ -24,3 +24,5 @@
               value: "visualization"
             - name: KAFKA_BOUNDED_CONTEXT_CONSUMER_POSTFIX
               value: "cloud"
+            - name: MONGO
+              value: "mongodb://mongo:27017"
