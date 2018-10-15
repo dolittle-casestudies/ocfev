@@ -1,0 +1,37 @@
+---
+  kind: Deployment
+  apiVersion: extensions/v1beta1
+  metadata:
+    name: mongo
+    namespace: ocfev
+  spec:
+    template:
+      metadata:
+        labels:
+          app: visualization
+          name: mongo
+      spec:
+        containers:
+        - name: mongo
+          image: mongo
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 27017
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: mongo
+    namespace: ocfev
+    labels:
+      app: visualization
+  spec:
+    ports:
+    - port: 27017
+      targetPort: 27017
+      name: mongo-port
+      protocol: TCP
+    selector:
+      app: visualization
+      name: mongo
+  
