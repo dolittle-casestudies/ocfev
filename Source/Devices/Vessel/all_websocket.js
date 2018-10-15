@@ -1,4 +1,5 @@
-var host = '192.168.10.148';
+var host = '104.40.203.222';
+var port = 8080;
 var WebSocket = require('ws');
 var ws = null;
 var connected = false;
@@ -67,11 +68,15 @@ function setMotorThrottle(motor, throttle) {
 
 
 function connectWebSocket() {
-  if( ws !== null ) delete ws;
+  if( ws !== null ) {
+    delete ws;
+    ws = null;
+  }
+
   try {
     ws = new WebSocket(host, {
       path: '/vessel/orientation',
-      port: 5000,
+      port: port,
       protocol: 'none',
       protocolVersion: 13,
       origin: 'Espruino',
@@ -82,6 +87,10 @@ function connectWebSocket() {
     ws.on('open', function () {
       console.log('Connected to server');
       connected = true;
+    });
+
+    ws.on('error', function(msg) {
+      console.log(`Error - ${msg}`);
     });
 
     ws.on('message', function (msg) {
@@ -144,6 +153,3 @@ function onInit() {
   stopMotor(0);
   stopMotor(1);
 }
-
-
-//onInit();
