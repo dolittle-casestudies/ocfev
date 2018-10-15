@@ -12,7 +12,8 @@ export class map {
 
     constructor(httpClient) {
         this.vessel_marker;
-        this.lat_long_center_init = { lat: 59.90700614346053, lng: 10.75143098831177 };
+        //this.lat_long_center_init = { lat: 59.90700614346053, lng: 10.75143098831177 };
+        this.lat_long_center_init = { lat: 63.4346, lng: 10.3937 };
         this.vessel_marker_location;
         this._httpClient = httpClient;
     }
@@ -93,9 +94,10 @@ export class map {
             },
             _center_map_to_vessel: function(ev) {
                 if (!self.vessel_marker_location) {
-                    let _latlng = { lat: 59.90700614346053, lng: 10.75143098831177 };
+                    //let _latlng = { lat: 59.90700614346053, lng: 10.75143098831177 };
+                    let _latlng = { lat: 63.4346, lng: 10.3937 };
                     self._add_vessel_marker(_latlng);
-                    self.vessel_marker_rotation = -65;
+                    self.vessel_marker_rotation = 60;
                 }
                 self.map.setView(self.vessel_marker_location, 16);
             },
